@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="/view/css/styles.css">
+</head>
+
+<body>
+    <div class="contenidoLogin">
+        <div class="container">
+            <ul class="lista">
+                <li class="liLogin" id="b-sales" onclick="mostrarSales()"> <img class="imgSvg"
+                        src="/client/View/img/cart3.svg" alt=""> <a class="tamañoLetrasA" href="#">Sales</a></li>
+                <li class="liLogin" id="b-new-sale" onclick="mostrarNewSale()"> <img class="imgSvg" src="/client/View/img/cart-plus.svg" alt=""> <a
+                        class="tamañoLetrasA" href="#">New Sale</a></li>
+                <li class="liLogin" id="b-Dashboard" onclick="mostrarDashboard()"> <img class="imgSvg" src="/client/View/img/info-circle.svg" alt=""> <a
+                        class="tamañoLetrasA" href="#">Dashboard</a></li>
+                <li class="liLogin" id="b-" onclick="mostrarUsers()"> <img class="imgSvg" src="/client/View/img/person-gear.svg" alt=""> <a
+                        class="tamañoLetrasA" href="#">Users</a></li>
+                <li class="liLogin"> <img class="imgSvg" src="/client/View/img/box.svg" alt=""> <a class="tamañoLetrasA"
+                        href="./index.html">Log Out</a></li>
+            </ul>
+        </div>
+
+
+        <main id="mainAdmin">
+
+        </main>
+
+
+
+        <!--------------------------------- MY SALES ------------------------------- -->
+        <template id="MySales">
+            <div class="salesContainer adminSales">
+                <h1 class="titSales">Sales Overview</h1>
+                <table class="salesTable">
+                    <thead class="tSales">
+                        <tr class="trSales">
+                            <th class="thSales">Sale</th>
+                            <th class="thSales">Status</th>
+                            <th class="thSales">Description</th>
+                            <th class="thSales">Estimated Delivery Date</th>
+                            <th class="thSales">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tBody">
+                        <tr class="trSales2">
+                            <td class="numberCot" >1</td>
+                            <td><span class="status new">New</span></td>
+                            <td>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
+                            </td>
+                            <td>01-08-2024</td>
+                            <td class="actionButtons">
+                                <button id="edit">Gestion</button>
+                                <button id="delete">Delete</button>
+                            </td>
+                        </tr>
+                        <tr class="trSales1">
+                            <td class="numberCot" >2</td>
+                            <td><span class="status building">Building Art</span></td>
+                            <td>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
+                            </td>
+                            <td>01-08-2024</td>
+                            <td class="actionButtons">
+                                <button id="edit">Gestion</button>
+                                <button id="delete">Delete</button>
+                            </td>
+                        </tr>
+                        <tr class="trSales2">
+                            <td class="numberCot" >3</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
+                            </td>
+                            <td>01-08-2024</td>
+                            <td class="actionButtons">
+                                <button id="edit">Gestion</button>
+                                <button id="delete">Delete</button>
+                            </td>
+                        </tr>
+                        <tr class="trSales1">
+                            <td class="numberCot" >4</td>
+                            <td><span class="status on-the-way">On the Way</span></td>
+                            <td>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
+                            </td>
+                            <td>01-08-2024</td>
+                            <td class="actionButtons">
+                                <button id="edit">Gestion</button>
+                                <button id="delete">Delete</button>
+                            </td>
+                        </tr>
+                        <tr class="trSales2">
+                            <td class="numberCot" >5</td>
+                            <td><span class="status stock">Stock</span></td>
+                            <td>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
+                            </td>
+                            <td>01-08-2024</td>
+                            <td class="actionButtons">
+                                <button id="edit">Gestion</button>
+                                <button id="delete">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+
+
+
+        <!--------------------------------- NEW SALE ------------------------------- -->
+
+        <template id="newSale">
+            <div class="newSalesContainer">
+                <h2>New Sales</h2>
+                <div class="newSalesForm">
+                    <label for="salesTitle">Title:</label>
+                    <input type="text" id="salesTitle" name="salesTitle" placeholder="Enter sale title">
+
+                    <label for="salesDescription">Description:</label>
+                    <textarea id="salesDescription" name="salesDescription"
+                        placeholder="Enter sale description"></textarea>
+
+
+                    <button type="submit">Add Sale</button>
+                </div>
+            </div>
+        </template>
+
+
+
+        <!--------------------------------- DASHBOARD ------------------------------- -->
+        <template id="dashboard">
+            <div class="dashboardContainer">
+                <h2 class="titDash">Dashboard</h2>
+                <div class="dashboardSummary">
+                    <div class="summaryItem">
+                        <h3>Total Sales</h3>
+                        <p>Number of sales made: <span id="totalSales">100</span></p>
+                    </div>
+                    <div class="summaryItem">
+                        <h3>Pending Sales</h3>
+                        <p>Number of pending sales: <span id="pendingSales">5</span></p>
+                    </div>
+                    <div class="summaryItem">
+                        <h3>Completed Sales</h3>
+                        <p>Number of completed sales: <span id="completedSales">90</span></p>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+
+</html>
+
+<!--------------------------------- users ------------------------------- -->
+<template id="users">
+    <div class="usersContainer">
+        <h2 class="tittleUsers">Users</h2>
+        <table class="usersTable">
+            <thead  class="trUsers">
+                <tr>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>john.doe@example.com</td>
+                    <td>creator</td>
+                    <td>
+                        <button class="actionButton editButton">Edit</button>
+                        <button class="actionButton deleteButton">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jane Smith</td>
+                    <td>jane.smith@example.com</td>
+                    <td>Client</td>
+                    <td>
+                        <button class="actionButton editButton">Edit</button>
+                        <button class="actionButton deleteButton">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Gabriel Vasquez</td>
+                    <td>gabriel@example.com</td>
+                    <td>Admin</td>
+                    <td>
+                        <button class="actionButton editButton">Edit</button>
+                        <button class="actionButton deleteButton">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</template>
+
+
+<script src="/view/js/vista.js"></script>
+<script src="/controller/controller.js"></script>
+</body>

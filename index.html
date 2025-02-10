@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="index,follow" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Globos" />
+    <meta name="keywords" content="Globos,diseños,artisticos, etc" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Globo Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Krub:wght@200;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./view/css/styles.css">
+    <link rel="stylesheet" href="./client.html">
+</head>
+
+<body>
+    <header class="mainHead">
+        <nav>
+            <h1 id="logo">
+                <img src="./view/img/Logo.png" alt="">
+                Globo Studio
+            </h1>
+            <ul class="navLinks">
+                <li><a class="tittleMenu" href="/gallery.html">Gallery</a></li>
+                <li><a class="tittleMenu" href="#about">About</a></li>
+                <li><a class="tittleMenu" href="#ourServices">Services</a></li>
+                <li><a class="tittleMenu" href="#sectLogin" onclick="mostrarLogin()" id="loginModal">Login</a></li>
+            </ul>
+            <div class="burger">
+                <span class="line1"></span>
+                <span class="line2"></span>
+                <span class="line3"></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="section"> <!-- Welcome -->
+        <div class="contenedor">
+            <img class="imglogo" src="./view/img/globoStudioLogo.png" alt="">
+            <p class="parrafoPrimero">Are a company dedicated to balloon decoration, specialized in large
+                family
+                events and
+                corporate services. Our focus is on offering innovative and creative designs that transform
+                any
+                occasion into a unique and memorable experience.</p>
+        </div>
+        <div class="divCuadro" id="sectGallery">
+            <a class="cuadroGallery" href="/gallery.html">Gallery</a>
+        </div>
+
+        <section> <!-- Mostrar Imagenes -->
+            <div class="carruselContainer">
+                <button class="arrow left">&#10094;</button>
+                <div class="cajas1">
+                    <img class="imgDragon" src="./view/img/arcos/1.jpg" alt="diseño dragon">
+                    <img class="imgDragon" src="./view/img/arcos/9.jpg" alt="diseño dragon">
+                    <img class="imgDragon" src="./view/img/arcos/3.jpg" alt="diseño dragon">
+                    <img class="imgDragon" src="./view/img/arcos/4.jpg" alt="diseño dragon">
+                    <img class="imgDragon" src="./view/img/arcos/5.jpg" alt="diseño dragon">
+                    <img class="imgDragon" src="./view/img/arcos/6.jpg" alt="diseño dragon">
+                    <img class="imgDragon" src="./view/img/arcos/7.jpg" alt="diseño dragon">
+                    <img class="imgDragon" src="./view/img/arcos/8.jpg" alt="diseño dragon">
+                    <img class="imgDragon" src="./view/img/arcos/9.jpg" alt="diseño dragon">
+                </div>
+                <button class="arrow right">&#10095;</button>
+            </div>
+        </section>
+
+
+        <section class="section2" id="about"> <!--About-->
+
+            <h1 class="tittle">ABOUT</h1>
+            <div class="info">
+                <p class="parrafo">ALSO, WE OFFER…
+                    Creativity without limits: We understand the importance of originality and innovation.
+                    Full Customization: We are committed to working closely with our clients to understand their
+                </p>
+            </div>
+
+            <h1 class="tittle">Our Work</h1>
+            <div class="info">
+                <p class="parrafo">ALSO, WE OFFER…
+                    Creativity without limits: We understand the importance of originality and innovation.
+                    Full Customization: We are committed to working closely with our clients to understand their
+                </p>
+            </div>
+        </section>
+
+        <div class="services" id="ourServices"> <!--Services-->
+            <h2 class="tittle">Our Services</h2>
+
+            <div class="servicesWrapper">
+                <div class="service">
+                    <img src="./view/img/arcos/11.jpg" alt="globo">
+                    <h4>Service 1</h4>
+                    <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                </div>
+                <div class="service">
+                    <img src="./view/img/bouquets/11.jpg" alt="globo">
+                    <h4>Service 2</h4>
+                    <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                </div>
+                <div class="service">
+                    <img src="./view/img/especializados/11.jpg" alt="globo">
+                    <h4>Service 3</h4>
+                    <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!------------------ Modal Login -------------->
+        <section class="login" id="account">
+            <template id="loginTemp">
+                <div class="logIn">
+                    <div class="cajaQuote">
+                        <h4>EMAIL</h4>
+                        <input type="text" placeholder="Nombre">
+                    </div>
+                    <div class="cajaQuote">
+                        <h4>PASSWORD</h4>
+                        <input type="text" placeholder="">
+                    </div>
+                    <div class="buttonLog">
+                        <a class="tamañoLetras" href="./admin.html">LOGIN</a>
+                    </div>
+                    <h4 class="forgotPassword" onclick="mostrarRecovery()">I FORGOT MY PASSWORD</h4>
+                </div>
+            </template>
+        </section>
+
+
+        <!-------------- Recuperar contraseña ----------->
+
+        <template class="recovery" id="recoveryTemp">
+            <div class="logIn">
+                <div class="cajaQuote">
+                    <h4>YOUR EMAIL</h4>
+                    <input type="text" placeholder="Email">
+                </div>
+                <div class="codeVeri">
+                    <h4">SEND NEW PASSWORD</h4>
+                </div>
+                <div class="cajaQuote">
+                    <h4>YOUR PASSWORD:</h4>
+                    <input class="codeV" type="text" placeholder="Code">
+                </div>
+                <div class="buttonContinue">
+                    <h4>CONTINUE</h4>
+                </div>
+            </div>
+        </template>
+
+        <!---------------------------------- Registrarse ---------------------->
+        <template class="recovery" id="registerModal">
+                <div class="logIn">
+                    <div class="cajaQuote">
+                        <table class="tableQuote">
+                            <tr>
+                                <th>
+                                    <h4>Your Email</h4>
+                                    <input type="text" placeholder="Email">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <h4>Your Name</h4>
+                                    <input type="text" placeholder="Name">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <h4>Your Password</h4>
+                                    <input type="text" placeholder="Password">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <h4>Confirm Password</h4>
+                                    <input type="text" placeholder="Password">
+                                </th>
+                            </tr>
+                        </table>
+                        <div class="buttonReg">
+                            <h4>REGISTER</h4>
+                        </div>
+                    </div>
+                </div>
+        </template>
+
+
+        <footer><!------------------ footer -------------->
+            <h5 class="contact">Contáctanos</h5>
+            <div class="footer">
+                <div class="footerUno">
+                    <p class="dateFooter">Celular: (+57) 314 211 99 46</p>
+                    <p class="dateFooter">Bogotá, Colombia</p>
+                    <p class="dateFooter">Envios unicamente en Bogotá.</p>
+                    <p class="dateFooter">Síguenos en nuestras redes:</p>
+                </div>
+                <div class="footerDos">
+                    <a href="https://www.facebook.com/share/1DfwVBr9ZL/" target="_blank">
+                        <img class="imgContact" src="/view/img/facebook.svg" alt="Facebook">
+                    </a>
+                    <a href="https://wa.me/3142119946" target="_blank">
+                        <img class="imgContact" src="/view/img/whatsapp.svg" alt="WhatsApp">
+                    </a>
+                    <a href="https://www.instagram.com/globo_arte_marthaperez?igsh=d3YycG52cDFyNWNw" target="_blank">
+                        <img class="imgContact" src="/view/img/instagram.svg" alt="Instagram">
+                    </a>
+                </div>
+            </div>
+        </footer>
+
+
+
+    </section>
+
+
+
+    <script src="/view/js/vista.js"></script>
+    <script src="/controller/controller.js"></script>
+</body>
+
+</html>
