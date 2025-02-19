@@ -24,63 +24,6 @@ links.forEach(link=>{
 });
 
 
-/* --------------------------------- Scroll --------------------------------- */
-
-const mainHead = document.querySelector('.mainHead');
-
-// Mantiene la posición de scroll anterior
-let lastScrollTop = 0;
-
-// Función para verificar la dirección del scroll
-function handleScroll() {
-    // Obtiene la posición de scroll actual
-    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    // Compara la posición actual con la anterior
-    if (currentScrollTop > lastScrollTop) {
-        // Scroll hacia abajo - ocultar
-        mainHead.classList.add('hidden');
-    } else {
-        // Scroll hacia arriba - mostrar
-        mainHead.classList.remove('hidden');
-    }
-
-    // Actualiza la posición de scroll anterior
-    lastScrollTop = currentScrollTop;
-}
-
-// Función para limitar la frecuencia de ejecución de una función
-function throttle(func, limit) {
-    let lastFunc;
-    let lastRan;
-    return function() {
-        const context = this;
-        const args = arguments;
-        if (!lastRan) {
-            func.apply(context, args);
-            lastRan = Date.now();
-        } else {
-            clearTimeout(lastFunc);
-            lastFunc = setTimeout(function() {
-                if ((Date.now() - lastRan) >= limit) {
-                    func.apply(context, args);
-                    lastRan = Date.now();
-                }
-            }, limit - (Date.now() - lastRan));
-        }
-    };
-}
-
-// Crea una versión optimizada de la función de scroll usando throttle
-const handleScrollThrottled = throttle(handleScroll, 500);
-
-// Escuchar el evento de scroll
-window.addEventListener('scroll', handleScrollThrottled);
-
-// Agregar la clase 'fixedMenu' al elemento 'mainHead'
-mainHead.classList.add('fixedMenu');
-
-
 /* --------------------------------- Modal Login --------------------------------- */
 
 const login = document.querySelector('.login');
@@ -126,6 +69,16 @@ function mostrarLogin() {
 function mostrarRecovery() {
     vista.mostrarPlantilla("recoveryTemp", "account")
 }
+
+// /*************************** Template Register ********************/
+//  function mostrarRegister() {
+//     const registerTemplate = document.getElementById('registerModal');
+//     const registerContent = registerTemplate.content.cloneNode(true); 
+
+//     const accountSection = document.getElementById('account');
+//     accountSection.innerHTML = '';
+//     accountSection.appendChild()
+//  }
 
 
 /*********************************** ADMIN *****************************/
