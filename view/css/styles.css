@@ -272,47 +272,14 @@ nav {
     border-radius: 15px;
 }
 
-.forgotPassword {
-    text-align: center;
-    cursor: pointer;
-    padding: 15px;
-}
-
 .backToLogin{
     cursor: pointer;
-}
-
-.cajaQuote {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
 }
 
 input {
     border: none;
     border-bottom: 2px solid #a00000;
     background: transparent;
-}
-
-.buttonLog {
-    width: 70px;
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 5px;
-    margin-bottom: 30px;
-    cursor: pointer;
-}
-
-.buttonLog a {
-    color: white;
-}
-
-.buttonLog:hover {
-    color: rgb(121, 0, 0);
 }
 
 .buttonContinue {
@@ -333,10 +300,6 @@ input {
 
 .tamañoLetras {
     font-size: .7rem;
-}
-
-.forgotPassword:hover {
-    color: rgb(121, 0, 0);
 }
 
 .codeVeri {
@@ -606,6 +569,7 @@ input {
     padding: 10px;
     font-size: 1.2rem;
     background-color: #ff8c8c9f;
+    margin-bottom: 0;
 }
 
 .footerDos {
@@ -617,7 +581,7 @@ input {
     font-size: .8rem;
     margin-left: 40px;
     margin-top: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .imgContact {
@@ -630,10 +594,7 @@ input {
 
 /*********************************** Admin ******************/
 
-.contenidoLogin {
-    display: grid;
-    grid-template-columns: 25% 75%;
-}
+
 
 .container {
     display: flex;
@@ -649,10 +610,6 @@ input {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-}
-
-.liLogin {
-    gap: .5rem;
 }
 
 .tamañoLetrasA {
@@ -772,19 +729,17 @@ img {
         transform: translateX(-100%);
     }
 
-    .toggle .line1 {
-        transform: rotateZ(45deg) translateY(300%);
-        background: white;
-    }
-
-    .toggle .line2 {
-        opacity: 0;
-    }
-
-    .toggle .line3 {
-        transform: rotateZ(-45deg) translateY(-300%);
-        background: white;
-    }
+    .custom-btn {
+        background-color: transparent;
+        border: 1px solid #ccc; /* Ajusta el borde si lo deseas */
+        color: #333; /* Color del texto */
+      }
+    
+      .custom-btn:hover {
+        background-color: #f8f9fa; /* Cambia el color de fondo al pasar el ratón por encima */
+        border-color: #007bff; /* Cambia el color del borde al pasar el ratón */
+        color: #007bff; /* Cambia el color del texto al pasar el ratón */
+      }
 
 
     .aboutText div {

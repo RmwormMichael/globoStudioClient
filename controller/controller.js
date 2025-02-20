@@ -26,46 +26,67 @@ links.forEach(link=>{
 
 /* --------------------------------- Modal Login --------------------------------- */
 
-const login = document.querySelector('.login');
-const loginModal = document.getElementById('loginModal');
+const exampleModal = document.getElementById('exampleModal')
+if (exampleModal) {
+  exampleModal.addEventListener('show.bs.modal', event => {
+    // Button that triggered the modal
+    const button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    const recipient = button.getAttribute('data-bs-whatever')
+    // If necessary, you could initiate an Ajax request here
+    // and then do the updating in a callback.
 
-// Función para cerrar el modal
-function closeModal() {
-    if (login.classList.contains('loginToggle')) {
-        // Agrega la clase de animación de salida
-        login.classList.add('logout');
+    // Update the modal's content.
+    const modalTitle = exampleModal.querySelector('.modal-title')
+    const modalBodyInput = exampleModal.querySelector('.modal-body input')
 
-        // Espera el tiempo de duración de la animación para eliminar la clase y ocultar el modal
-        login.addEventListener('transitionend', () => {
-            login.classList.remove('loginToggle', 'logout');
-            login.style.display = 'none'; // Oculta el modal
-        }, { once: true });
-    }
+    modalTitle.textContent = `New message to ${recipient}`
+    modalBodyInput.value = recipient
+  })
 }
-
-// Evento para abrir y cerrar el modal al hacer clic en el modal
-loginModal.addEventListener('click', () => {
-    if (login.classList.contains('loginToggle')) {
-        closeModal();
-    } else {
-        login.style.display = 'flex'; // Muestra el modal
-        login.classList.add('loginToggle');
-    }
-});
-
 /*************************** Template Login ********************/
 
-function mostrarLogin() {
-    // Obtener el template y clonar su contenido
-    const loginTemplate = document.getElementById("loginTemp");
-    const loginContent = loginTemplate.content.cloneNode(true);
+document.getElementById('loginBtn').addEventListener('click', function() {
+    // Cambiar título y contenido del formulario a login
+    document.getElementById('modalTitle').textContent = 'Inicia sesión';
+    document.getElementById('modalBody').innerHTML = `
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div>
+        <div class="mb-3 row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputPassword">
+            </div>
+        </div>
+    `;
+    document.getElementById('modalActionBtn').textContent = 'Iniciar sesión';
+});
 
-    // Limpiar el contenedor del modal y agregar el contenido del login
-    const accountSection = document.getElementById("account");
-    accountSection.innerHTML = '';  // Limpiar cualquier contenido anterior
-    accountSection.appendChild(loginContent); // Añadir el contenido del template
-}
-
+document.getElementById('registerBtn').addEventListener('click', function() {
+    // Cambiar título y contenido del formulario a register
+    document.getElementById('modalTitle').textContent = 'Crear cuenta';
+    document.getElementById('modalBody').innerHTML = `
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div>
+        <div class="mb-3 row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputPassword">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="inputConfirmPassword" class="col-sm-2 col-form-label">Confirm Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputConfirmPassword">
+            </div>
+        </div>
+    `;
+    document.getElementById('modalActionBtn').textContent = 'Registrar';
+});
 function mostrarRecovery() {
     vista.mostrarPlantilla("recoveryTemp", "account")
 }
