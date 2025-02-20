@@ -69,8 +69,12 @@ document.getElementById('registerBtn').addEventListener('click', function() {
     document.getElementById('modalTitle').textContent = 'Crear cuenta';
     document.getElementById('modalBody').innerHTML = `
         <div class="mb-3">
+            <label for="inputName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="inputName" placeholder="Nombre Completo">
+            </div>
+        <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            <input type="email" class="form-control" id="emailRegister" placeholder="name@example.com">
         </div>
         <div class="mb-3 row">
             <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
@@ -78,29 +82,57 @@ document.getElementById('registerBtn').addEventListener('click', function() {
                 <input type="password" class="form-control" id="inputPassword">
             </div>
         </div>
-        <div class="mb-3 row">
-            <label for="inputConfirmPassword" class="col-sm-2 col-form-label">Confirm Password</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputConfirmPassword">
-            </div>
-        </div>
     `;
     document.getElementById('modalActionBtn').textContent = 'Registrar';
 });
+
+
 function mostrarRecovery() {
     vista.mostrarPlantilla("recoveryTemp", "account")
 }
 
-// /*************************** Template Register ********************/
-//  function mostrarRegister() {
-//     const registerTemplate = document.getElementById('registerModal');
-//     const registerContent = registerTemplate.content.cloneNode(true); 
 
-//     const accountSection = document.getElementById('account');
-//     accountSection.innerHTML = '';
-//     accountSection.appendChild()
-//  }
+/***********************************Fetch *******************************/
 
+// Escuchar el clic del botón "Registrar"
+document.getElementById('modalActionBtn').addEventListener('click', async function() {
+    // Obtener los valores de los inputs
+    const nombre = document.getElementById('inputName').value;
+    const email = document.getElementById('emailRegister').value;
+    const password = document.getElementById('inputPassword').value;
+
+    // Crear el objeto con los datos del usuario
+    const usuarioData = {
+        nombre,
+        email,
+        password
+    };
+
+    try {
+        // Enviar la solicitud al backend con fetch
+        const response = await fetch("http://localhost:4000/api/usuarios/usuarios", {
+            method: "POST",  // El método HTTP será POST
+            headers: {
+                "Content-Type": "application/json"  // Indicamos que estamos enviando JSON
+            },
+            body: JSON.stringify(usuarioData)  // Convertimos el objeto de datos a formato JSON
+        });
+
+        // Obtener la respuesta del servidor en formato JSON
+        const data = await response.json();
+
+        // Verificar si la solicitud fue exitosa
+        if (response.ok) {
+            alert(data.msg);  // Mostrar el mensaje de éxito
+        } else {
+            alert(data.msg);  // Mostrar el mensaje de error
+        }
+    } catch (error) {
+        // Manejar cualquier error que ocurra
+        console.error("Error al registrar el usuario:", error);
+        alert("Hubo un problema con la solicitud.");
+    }
+});
 
 /*********************************** ADMIN *****************************/
 function mostrarSales() {
