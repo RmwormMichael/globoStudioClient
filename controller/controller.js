@@ -152,8 +152,56 @@ function mostrarPoints() {
 }
 
 function mostrarUsers() {
-    vista.mostrarPlantilla("users", "mainAdmin")
+    vista.mostrarPlantilla("users", "mainAdmin"); // Cambia la plantilla
+
+    // Esperar a que la plantilla se cargue antes de obtener los usuarios
+    setTimeout(() => {
+        obtenerUsuarios(); // Llamamos a la función para cargar la tabla
+    }, 100); // Pequeño delay para asegurar que la plantilla se renderice
 }
+
+
+/*******************************************Tabla usuarios */
+
+document.addEventListener("DOMContentLoaded", () => {
+    const usersLink = document.querySelector("#usersLink"); // Asegúrate de que el botón/toggle tiene este ID
+    
+    if (usersLink) {
+        usersLink.addEventListener("click", () => {
+            console.log("Cargando usuarios...");
+            obtenerUsuarios(); // Llamamos la función SOLO cuando se accede a la sección de Users
+        });
+    }
+});
+
+async function obtenerUsuarios() {
+    try {
+        const response = await fetch('http://localhost:4000/api/usuarios/usuarios'); // Verifica la ruta correcta
+        const usuarios = await response.json();
+
+        const tableBody = document.querySelector("#usuariosTable tbody");
+        tableBody.innerHTML = ""; // Limpiar antes de agregar nuevos datos
+
+        usuarios.forEach(usuario => {
+            const fila = document.createElement("tr");
+            fila.innerHTML = `
+                <td>${usuario.id_user}</td>
+                <td>${usuario.nombre}</td>
+                <td>${usuario.email}</td>
+            `;
+            tableBody.appendChild(fila);
+        });
+
+        console.log("Usuarios cargados correctamente.");
+    } catch (error) {
+        console.error("Error al obtener usuarios:", error);
+    }
+}
+
+
+
+
+
 
 
 /* CLIENT */

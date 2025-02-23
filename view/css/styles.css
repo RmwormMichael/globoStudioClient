@@ -18,6 +18,9 @@ a {
     border-radius: 2%;
 }
 
+h1 {
+    text-align: center;
+}
 
 
 /************************************ header *************************/
@@ -113,6 +116,9 @@ nav {
     background-color: var(--primario);
 }
 
+
+
+
 .contenedor {
     display: flex;
     justify-content: space-evenly;
@@ -131,14 +137,15 @@ nav {
     line-height: 1.5;
     margin: 2.5rem 3rem;
     border-radius: 15px;
+    padding: 20px;
 }
 
 .cuadroGallery {
     background-color: rgba(255, 255, 255, 0.911);
     padding: 1rem 2rem;
     border: 3px solid black;
-    margin-bottom: 3rem;
-    margin-top: 30px;
+    margin-bottom: 2rem;
+    margin-top: 20px;
     transition: all 0.5s ease;
     text-decoration: none;
     border-radius: 5px;
@@ -193,6 +200,29 @@ nav {
     margin: 0 10px;
 }
 
+/* Asegura que las imágenes del carrusel se adapten */
+.carousel-item img {
+    width: 100%;
+    height: 100%;  /* Ajusta la altura al 100% del contenedor */
+    object-fit: contain;  /* Hace que la imagen no se recorte */
+}
+
+.divCuadro a {
+    text-align: center;
+    display: block;
+    padding: 10px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 18px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.divCuadro a:hover {
+    background-color: var(--primario);
+}
+
 /**************************************** section Dos ****************************/
 
 .section2 {
@@ -201,12 +231,9 @@ nav {
     padding: 3rem 2rem;
 }
 
-.tittle {
-    padding: 2rem 0rem;
-    font-size: 2rem;
-    text-decoration: none;
-    color: #ffffff;
-    text-shadow: -1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black, 1px -1px 0 black;
+.carousel-item {
+    position: relative;
+    text-align: center; 
 }
 
 
@@ -218,14 +245,12 @@ nav {
 
 .servicesWrapper {
     min-height: 100vh;
-    padding: 2rem;
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
 }
 
 .service {
-    height: 500px;
     backdrop-filter: blur(4px);
     flex: 1 1 25rem;
     display: flex;
@@ -240,6 +265,8 @@ nav {
     -o-border-radius: 25px;
     box-shadow: 0px 20px 10px rgba(0, 0, 0, 0.405);
     transition: all 0.5s ease;
+    padding: .5rem;
+    overflow: hidden;
 }
 
 .service:hover {
@@ -259,8 +286,8 @@ nav {
 
 .service p {
     text-align: center;
-    padding: 25px;
 }
+
 
 /************************************** Login ***********************/
 .login {
@@ -513,7 +540,7 @@ input {
 
 .usersTable {
     overflow-x: auto;
-    border-collapse: collapse;
+
     margin: 10px;
 }
 
@@ -608,6 +635,10 @@ input {
 
 .tamañoLetrasA {
     font-size: 1.4rem;
+}
+
+.imgSvg {
+    height: 8vh;
 }
 
 /************************************ GALLERY ****************************************/
@@ -738,33 +769,9 @@ img {
 
 
 
-
-
-
-
-
-@media (min-width: 550px) {
-    .usersContainer {
-        padding: 5% 7%;
-        font-size: 20px;
-    }
-
-    .usersTable th,
-    .usersTable td {
-        text-align: left;
-        padding: 5px;
-        border-bottom: 1px solid rgba(146, 0, 0, 0.7);
-        height: 10vh;
-    }
-}
-
-
-
-
-
 /*********************************pantalla*********************************/
 
-@media screen and (min-width: 843px) {
+@media (min-width: 840px) {
 
     .contenedor {
         display: flex;
@@ -781,7 +788,9 @@ img {
     }
 
     .imglogo{
-        margin-top: 0;
+        margin-top: 8%;
+        width: 45%;
+        height: 60vh;
     }
 
 
@@ -807,5 +816,59 @@ img {
     .navLinks a {
         color: #000000;
         transition: all 0.5s ease;
+    }
+
+    .parrafoPrimero {
+        width: 40%;
+    }
+
+/* Ajusta los márgenes y la disposición para pantallas grandes */
+
+    .carousel-item {
+        height: 500px;  /* Ajusta la altura del carrusel en pantallas grandes */
+    }
+
+    .carousel-item img {
+        object-position: center;  /* Asegura que las imágenes se mantengan centradas */
+    }
+
+    /* Puedes ajustar la altura de los textos en las diapositivas para que no se sobrepongan */
+    .carousel-caption {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 28px;  /* Aumenta el tamaño del texto en pantallas grandes */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 15px;
+        border-radius: 5px;
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 550px) {
+    .usersContainer {
+        padding: 5% 7%;
+        font-size: 20px;
+    }
+
+    .usersTable th,
+    .usersTable td {
+        text-align: left;
+        padding: 5px;
+        border-bottom: 1px solid rgba(146, 0, 0, 0.7);
+        height: 10vh;
     }
 }

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
     <link rel="stylesheet" href="/view/css/styles.css">
 </head>
@@ -13,22 +13,24 @@
         <div class="container">
             <ul class="lista">
                 <li class="liLogin" id="b-sales" onclick="mostrarSales()"> <img class="imgSvg"
-                        src="/client/View/img/cart3.svg" alt=""> <a class="tamañoLetrasA" href="#">Sales</a></li>
-                <li class="liLogin" id="b-new-sale" onclick="mostrarNewSale()"> <img class="imgSvg" src="/client/View/img/cart-plus.svg" alt=""> <a
+                        src="/view/img/cart.svg" alt=""> <a class="tamañoLetrasA" href="#">Sales</a></li>
+                <li class="liLogin" id="b-new-sale" onclick="mostrarNewSale()"> <img class="imgSvg" src="/view/img/cartPlus.svg" alt=""> <a
                         class="tamañoLetrasA" href="#">New Sale</a></li>
-                <li class="liLogin" id="b-Dashboard" onclick="mostrarDashboard()"> <img class="imgSvg" src="/client/View/img/info-circle.svg" alt=""> <a
+                <li class="liLogin" id="b-Dashboard" onclick="mostrarDashboard()"> <img class="imgSvg" src="/view/img/infoCircle.svg" alt=""> <a
                         class="tamañoLetrasA" href="#">Dashboard</a></li>
-                <li class="liLogin" id="b-" onclick="mostrarUsers()"> <img class="imgSvg" src="/client/View/img/person-gear.svg" alt=""> <a
+                <li class="liLogin" id="b-" onclick="mostrarUsers()"> <img class="imgSvg" src="/view/img/personGear.svg" alt=""> <a
                         class="tamañoLetrasA" href="#">Users</a></li>
-                <li class="liLogin"> <img class="imgSvg" src="/client/View/img/box.svg" alt=""> <a class="tamañoLetrasA"
+                <li class="liLogin"> <img class="imgSvg" src="/view/img/box.svg" alt=""> <a class="tamañoLetrasA"
                         href="./index.html">Log Out</a></li>
             </ul>
+
+            <main id="mainAdmin">
+
+            </main>
         </div>
 
 
-        <main id="mainAdmin">
 
-        </main>
 
 
 
@@ -158,45 +160,18 @@
 <template id="users">
     <div class="usersContainer">
         <h2 class="tittleUsers">Users</h2>
-        <table class="usersTable">
-            <thead  class="trUsers">
-                <tr>
-                    <th>User</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>John Doe</td>
-                    <td>john.doe@example.com</td>
-                    <td>creator</td>
-                    <td>
-                        <button class="actionButton editButton">Edit</button>
-                        <button class="actionButton deleteButton">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Jane Smith</td>
-                    <td>jane.smith@example.com</td>
-                    <td>Client</td>
-                    <td>
-                        <button class="actionButton editButton">Edit</button>
-                        <button class="actionButton deleteButton">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Gabriel Vasquez</td>
-                    <td>gabriel@example.com</td>
-                    <td>Admin</td>
-                    <td>
-                        <button class="actionButton editButton">Edit</button>
-                        <button class="actionButton deleteButton">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            <table class="usersTable" id="usuariosTable">
+                <thead  class="trUsers">
+                    <tr>
+                        <th>id_User</th>
+                        <th>nombre</th>
+                        <th>email</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
     </div>
 </template>
 
