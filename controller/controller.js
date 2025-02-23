@@ -110,7 +110,7 @@ document.getElementById('modalActionBtn').addEventListener('click', async functi
 
     try {
         // Enviar la solicitud al backend con fetch
-        const response = await fetch("http://localhost:4000/api/usuarios/usuarios", {
+        const response = await fetch("http://localhost:4000/api/usuarios/", {
             method: "POST",  // El método HTTP será POST
             headers: {
                 "Content-Type": "application/json"  // Indicamos que estamos enviando JSON
@@ -180,45 +180,7 @@ function mostrarDiseños() {
     vista.mostrarPlantilla("diseños", "mainCategory")
 }
 
-/* Fotos de inicio */ 
 
-const leftArrow = document.querySelector('.left');
-const rightArrow = document.querySelector('.right');
-const cajas = document.querySelector('.cajas1');
-const images = document.querySelectorAll('.imgDragon');
-const totalImages = images.length;
-let currentIndex = 0;
 
-const containerWidth = document.querySelector('.carruselContainer').offsetWidth;
-const imageWidth = containerWidth - 20; // Ajusta el tamaño de la imagen a 450px menos el margen (10px a cada lado)
-
-function moveTo(index) {
-    if (index < 0) index = totalImages - 1;
-    if (index >= totalImages) index = 0;
-
-    cajas.style.transform = `translateX(-${index * imageWidth}px)`;
-    currentIndex = index;
-}
-
-// Mover con flechas
-leftArrow.addEventListener('click', () => moveTo(currentIndex - 1));
-rightArrow.addEventListener('click', () => moveTo(currentIndex + 1));
-
-// Mover con gestos táctiles (para móviles)
-let touchStartX = 0;
-let touchEndX = 0;
-
-cajas.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-});
-
-cajas.addEventListener('touchend', (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-    if (touchStartX > touchEndX) {
-        moveTo(currentIndex + 1); // swipe left (next)
-    } else if (touchStartX < touchEndX) {
-        moveTo(currentIndex - 1); // swipe right (prev)
-    }
-});
 
 /*************************** */
