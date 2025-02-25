@@ -621,7 +621,6 @@ input {
     display: flex;
     align-items: center;
     background-color: var(--primario);
-    height: 100vh;
     gap: 7rem;
 }
 

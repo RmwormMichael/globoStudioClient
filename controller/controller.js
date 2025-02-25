@@ -90,6 +90,46 @@ document.getElementById('registerBtn').addEventListener('click', function() {
 function mostrarRecovery() {
     vista.mostrarPlantilla("recoveryTemp", "account")
 }
+ 
+document.getElementById("modalActionBtn").addEventListener("click", async () => {
+    const email = document.getElementById("exampleFormControlInput1").value;
+    const password = document.getElementById("inputPassword").value;
+
+    try {
+        const response = await fetch("http://localhost:4000/api/usuarios/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(data.message);
+            return;
+        }
+
+        // Guardar token y usuario en localStorage
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("usuario", JSON.stringify(data.usuario));
+
+        // Redirigir según el rol
+        if (data.usuario.rol === "admin") {
+            window.location.href = "/admin.html";
+        } else {
+            window.location.href = "/admin.html";
+        }
+    } catch (error) {
+        console.error("Error en la autenticación", error);
+    }
+});
+
+
+
+
+
+
+
 
 
 /***********************************Fetch *******************************/
