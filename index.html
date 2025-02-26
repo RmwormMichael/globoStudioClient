@@ -12,12 +12,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <title>Globo Studio</title>
     <link href="https://fonts.googleapis.com/css2?family=Krub:wght@200;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./view/css/styles.css">
 </head>
 
 <body>
+
+    <button class="botonSubir" onclick="scrollToTop()" id="botonSubir">
+        <img class="flechaA" src="/view/img/botonSubir.png" alt="">
+    </button>
+
+
     <header class="mainHead">
         <nav>
             <h1 id="logo">
@@ -25,12 +33,14 @@
                 Globo Studio
             </h1>
             <ul class="navLinks">
-                <li><a class="custom-btn" href="/gallery.html" style="font-size: 17px"  >Gallery</a></li>
-                <li><a class="custom-btn" href="#about" style="font-size: 17px" >About</a></li>
-                <li><a class="custom-btn" href="#ourServices" style="font-size: 17px" >Services</a></li>
-                <button type="button" class="btn custom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" id="loginBtn">Login</button>
-                <button type="button" class="btn custom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" id="registerBtn">Register</button>
-         
+                <li><a class="custom-btn" href="/gallery.html" style="font-size: 17px">Gallery</a></li>
+                <li><a class="custom-btn" href="#about" style="font-size: 17px">About</a></li>
+                <li><a class="custom-btn" href="#ourServices" style="font-size: 17px">Services</a></li>
+                <button type="button" class="btn custom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    id="loginBtn">Login</button>
+                <button type="button" class="btn custom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    id="registerBtn">Register</button>
+
             </ul>
             <div class="burger">
                 <span class="line1"></span>
@@ -43,7 +53,12 @@
     <section class="section"> <!-- Welcome -->
         <div class="contenedor">
             <img class="imglogo" src="./view/img/globoStudioLogo.png" alt="">
-            <p class="parrafoPrimero">En nuestra empresa nos especializamos en la decoración con globos, creando experiencias únicas para eventos familiares y corporativos. <br> Nos apasiona transformar cualquier ocasión en algo verdaderamente especial, con diseños innovadores y creativos que sorprenden y encantan. Cada detalle está pensado para hacer de tu evento un recuerdo inolvidable. <br> ¡Descubre cómo podemos darle un toque único a tu próxima celebración! ¡Te invitamos a explorar nuestras ideas y a soñar en grande con nosotros!.</p>
+            <p class="parrafoPrimero">En nuestra empresa nos especializamos en la decoración con globos, creando
+                experiencias únicas para eventos familiares y corporativos. <br> Nos apasiona transformar cualquier
+                ocasión en algo verdaderamente especial, con diseños innovadores y creativos que sorprenden y encantan.
+                Cada detalle está pensado para hacer de tu evento un recuerdo inolvidable. <br> ¡Descubre cómo podemos
+                darle un toque único a tu próxima celebración! ¡Te invitamos a explorar nuestras ideas y a soñar en
+                grande con nosotros!.</p>
         </div>
 
 
@@ -60,7 +75,7 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item">
-                        <img src="/view/img/arcos/10.jpg" alt="">
+                        <img class="imgCarrusel" src="/view/img/arcos/10.jpg" alt="">
                         <width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img"
                             aria-label="Marcador de posición: Primera diapositiva" preserveAspectRatio="xMidYMid slice"
                             focusable="false">
@@ -69,7 +84,7 @@
                                 dy=".3em">Decoracion de cumpleaños</text></svg>
                     </div>
                     <div class="carousel-item active">
-                        <img src="/view/img/arcos/11.jpg" alt="">
+                        <img class="imgCarrusel" src="/view/img/arcos/11.jpg" alt="">
                         <width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img"
                             aria-label="Marcador de posición: Segunda diapositiva" preserveAspectRatio="xMidYMid slice"
                             focusable="false">
@@ -78,7 +93,7 @@
                                 dy=".3em">Decoracion para empresas</text></svg>
                     </div>
                     <div class="carousel-item">
-                        <img src="/view/img/arcos/9.jpg" alt="">
+                        <img class="imgCarrusel" src="/view/img/arcos/9.jpg" alt="">
                         <width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img"
                             aria-label="Marcador de posición: Tercera diapositiva" preserveAspectRatio="xMidYMid slice"
                             focusable="false">
@@ -121,18 +136,22 @@
                 <div class="service">
                     <img src="./view/img/arcos/11.jpg" alt="globo">
                     <h4>Globos con Helio</h4>
-                    <p> Llevamos la magia de los globos flotantes directamente a tu hogar, creando un ambiente encantador y lleno de sorpresa. ¡Haz que tu celebración sea aún más especial con globos que se elevan por sí solos!.</p>
+                    <p> Llevamos la magia de los globos flotantes directamente a tu hogar, creando un ambiente
+                        encantador y lleno de sorpresa. ¡Haz que tu celebración sea aún más especial con globos que se
+                        elevan por sí solos!.</p>
                 </div>
                 <div class="service">
                     <img src="./view/img/bouquets/11.jpg" alt="globo">
                     <h4>Bouquets</h4>
-                    <p> Diseños exclusivos para darle un toque especial a tu hogar u oficina en esas fechas que merecen ser celebradas. ¡Haz que cada rincón brille con elegancia y creatividad!</p>
+                    <p> Diseños exclusivos para darle un toque especial a tu hogar u oficina en esas fechas que merecen
+                        ser celebradas. ¡Haz que cada rincón brille con elegancia y creatividad!</p>
                 </div>
                 <div class="service">
                     <img src="./view/img/especializados/11.jpg" alt="globo">
                     <h4>Diseños Especiales</h4>
-                    <p> ¡Haz que tu evento sea único con nuestros diseños de globos personalizados! 
-                        ¿Tienes algo en mente? Cuéntanos tu idea y nosotros la haremos realidad. ¡Sorprende a tus invitados con decoraciones impresionantes y personalizadas!.</p>
+                    <p> ¡Haz que tu evento sea único con nuestros diseños de globos personalizados!
+                        ¿Tienes algo en mente? Cuéntanos tu idea y nosotros la haremos realidad. ¡Sorprende a tus
+                        invitados con decoraciones impresionantes y personalizadas!.</p>
                 </div>
             </div>
         </div>
@@ -159,36 +178,37 @@
 
         <!------------------ Modal Login -------------->
 
-<!-- Botones de Login y Register -->
+        <!-- Botones de Login y Register -->
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 id="modalTitle">Inicia sesión</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="modalBody">
-                <!-- Formulario de Login por defecto -->
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                </div>
-                <div class="mb-3 row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputPassword">
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 id="modalTitle">Inicia sesión</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="modalBody">
+                        <!-- Formulario de Login por defecto -->
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1"
+                                placeholder="name@example.com">
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="inputPassword">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="modalActionBtn">Iniciar sesión</button>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="modalActionBtn">Iniciar sesión</button>
-            </div>
         </div>
-    </div>
-</div>
 
 
         <!-------------- Recuperar contraseña ----------->
@@ -239,7 +259,7 @@
 
     </section>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/view/js/vista.js"></script>
     <script src="/controller/controller.js"></script>

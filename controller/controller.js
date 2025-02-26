@@ -10,6 +10,7 @@ window.onload = () => {
 const nav = document.querySelector('.navLinks');
 const burger = document.querySelector('.burger');
 const links = nav.querySelectorAll("a");
+const buttons = nav.querySelectorAll("button"); // Seleccionamos los botones
 
 burger.addEventListener("click", ()=>{
     nav.classList.toggle("nav-open");
@@ -23,6 +24,13 @@ links.forEach(link=>{
     });
 });
 
+// Cerrar el menú cuando se haga clic en los botones (Login, Register, etc.)
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        nav.classList.remove("nav-open");
+        burger.classList.remove("toggle");
+    });
+});
 
 /* --------------------------------- Modal Login --------------------------------- */
 
@@ -228,6 +236,19 @@ async function obtenerUsuarios() {
                 <td>${usuario.id_user}</td>
                 <td>${usuario.nombre}</td>
                 <td>${usuario.email}</td>
+                <td><button type="button" class="btn btn-outline-secondary">Detalles</button></td>
+                <td><div class="btn-group">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    Action
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="#">Separated link</a></li>
+  </ul>
+</div></td>
             `;
             tableBody.appendChild(fila);
         });
@@ -271,4 +292,20 @@ function mostrarDiseños() {
 
 
 
-/*************************** */
+/********************************** boton subir ****************/
+
+
+// Muestra el botón cuando el usuario hace scroll hacia abajo
+window.onscroll = function() {
+    var btn = document.getElementById("botonSubir");
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+      btn.style.display = "block";
+    } else {
+      btn.style.display = "none";
+    }
+  };
+  
+  // Función para desplazarse hacia arriba al hacer clic
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }

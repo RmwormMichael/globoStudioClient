@@ -4,25 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <title>Admin</title>
     <link rel="stylesheet" href="/view/css/styles.css">
 </head>
 
 <body>
+    </header>
+
+
+
+
+
     <div class="contenidoLogin">
         <div class="container">
-            <ul class="lista">
-                <li class="liLogin" id="b-sales" onclick="mostrarSales()"> <img class="imgSvg"
-                        src="/view/img/cart.svg" alt=""> <a class="tamañoLetrasA" href="#">Sales</a></li>
-                <li class="liLogin" id="b-new-sale" onclick="mostrarNewSale()"> <img class="imgSvg" src="/view/img/cartPlus.svg" alt=""> <a
-                        class="tamañoLetrasA" href="#">New Sale</a></li>
-                <li class="liLogin" id="b-Dashboard" onclick="mostrarDashboard()"> <img class="imgSvg" src="/view/img/infoCircle.svg" alt=""> <a
-                        class="tamañoLetrasA" href="#">Dashboard</a></li>
-                <li class="liLogin" id="b-" onclick="mostrarUsers()"> <img class="imgSvg" src="/view/img/personGear.svg" alt=""> <a
-                        class="tamañoLetrasA" href="#">Users</a></li>
-                <li class="liLogin"> <img class="imgSvg" src="/view/img/box.svg" alt=""> <a class="tamañoLetrasA"
-                        href="./index.html">Log Out</a></li>
-            </ul>
+            <nav>
+                <h1 id="logo">
+                    <img src="./view/img/Logo.png" alt="">
+                    Globo Studio
+                </h1>
+                <ul class="navLinks">
+                    <li class="liLogin" id="b-sales" onclick="mostrarSales()"> <button type="button"
+                            class="btn btn-outline-dark">Ordenes</button></li>
+                    <li class="liLogin" id="b-new-sale" onclick="mostrarNewSale()"><button type="button"
+                            class="btn btn-outline-dark">Nueva Orden</button></li>
+                    <li class="liLogin" id="b-Dashboard" onclick="mostrarDashboard()"><button type="button"
+                            class="btn btn-outline-dark">Dashboard</button></li>
+                    <li class="liLogin" id="b-" onclick="mostrarUsers()"><button type="button"
+                            class="btn btn-outline-dark">Users</button></li>
+                    <li><a href="./index.html"> <img class="imgSvg" src="/view/img/box.svg" alt=""></a></li>
+
+                </ul>
+                <div class="burger">
+                    <span class="line1"></span>
+                    <span class="line2"></span>
+                    <span class="line3"></span>
+                </div>
+            </nav>
 
             <main id="mainAdmin">
 
@@ -36,76 +55,25 @@
 
         <!--------------------------------- MY SALES ------------------------------- -->
         <template id="MySales">
-            <div class="salesContainer adminSales">
-                <h1 class="titSales">Sales Overview</h1>
-                <table class="salesTable">
-                    <thead class="tSales">
-                        <tr class="trSales">
-                            <th class="thSales">Sale</th>
-                            <th class="thSales">Status</th>
-                            <th class="thSales">Description</th>
-                            <th class="thSales">Estimated Delivery Date</th>
-                            <th class="thSales">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="tBody">
-                        <tr class="trSales2">
-                            <td class="numberCot" >1</td>
-                            <td><span class="status new">New</span></td>
-                            <td>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
-                            </td>
-                            <td>01-08-2024</td>
-                            <td class="actionButtons">
-                                <button id="edit">Gestion</button>
-                                <button id="delete">Delete</button>
-                            </td>
-                        </tr>
-                        <tr class="trSales1">
-                            <td class="numberCot" >2</td>
-                            <td><span class="status building">Building Art</span></td>
-                            <td>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
-                            </td>
-                            <td>01-08-2024</td>
-                            <td class="actionButtons">
-                                <button id="edit">Gestion</button>
-                                <button id="delete">Delete</button>
-                            </td>
-                        </tr>
-                        <tr class="trSales2">
-                            <td class="numberCot" >3</td>
-                            <td><span class="status pending">Pending</span></td>
-                            <td>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
-                            </td>
-                            <td>01-08-2024</td>
-                            <td class="actionButtons">
-                                <button id="edit">Gestion</button>
-                                <button id="delete">Delete</button>
-                            </td>
-                        </tr>
-                        <tr class="trSales1">
-                            <td class="numberCot" >4</td>
-                            <td><span class="status on-the-way">On the Way</span></td>
-                            <td>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
-                            </td>
-                            <td>01-08-2024</td>
-                            <td class="actionButtons">
-                                <button id="edit">Gestion</button>
-                                <button id="delete">Delete</button>
-                            </td>
-                        </tr>
-                        <tr class="trSales2">
-                            <td class="numberCot" >5</td>
-                            <td><span class="status stock">Stock</span></td>
-                            <td>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
-                            </td>
-                            <td>01-08-2024</td>
-                            <td class="actionButtons">
-                                <button id="edit">Gestion</button>
-                                <button id="delete">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <div class="cardTittle">
+                        <h5>1</h5>
+                        <h5>Michael Rubiano</h5>
+                    </div>
+                    <p class="cardDescription">Ejemplo decoracion para cumpleaños 1 arco, 20 centros de mesa,
+                        motocicleta en globoflexia, 15 globos con helio.</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Dírección:</li>
+                    <li class="list-group-item">Día de creación:</li>
+                    <li class="list-group-item">Día de entrega: </li>
+                </ul>
+                <div class="card-body">
+                    <button type="button" class="btn btn-outline-dark">Editar</button>
+                    <button type="button" class="btn btn-outline-success">Terminar</button>
+                    <button type="button" class="btn btn-outline-danger">Eliminar</button>
+                </div>
             </div>
         </template>
 
@@ -160,22 +128,25 @@
 <template id="users">
     <div class="usersContainer">
         <h2 class="tittleUsers">Users</h2>
-            <table class="usersTable" id="usuariosTable">
-                <thead  class="trUsers">
-                    <tr>
-                        <th>id_User</th>
-                        <th>nombre</th>
-                        <th>email</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <table class="usersTable" id="usuariosTable">
+            <thead class="trUsers">
+                <tr>
+                    <th>Id_User</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Detalle</th>
+                    <th>Rol</th>
+                </tr>
+            </thead>
+            <tbody>
 
-                </tbody>
-            </table>
+            </tbody>
+        </table>
     </div>
 </template>
 
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/view/js/vista.js"></script>
 <script src="/controller/controller.js"></script>
 </body>

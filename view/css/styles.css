@@ -33,6 +33,34 @@ header {
 }
 
 /************************************* Nav Section *******************************/
+.botonSubir {
+    position: fixed;
+    bottom: 0px;
+    right: 0;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+    z-index: 1;
+}
+
+
+.contenidoLogin {
+    background-color: var(--primario);
+}
+
+.flechaA {
+    height: 15vh;
+}
+
+.btn-group-vertical>.btn,
+.btn-group>.btn {
+    font-size: 9px;
+    background-color: var(--primario);
+    color: #000000;
+}
 
 .mainHead {
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
@@ -58,9 +86,11 @@ nav {
 }
 
 .navLinks {
+    position: fixed;
     display: flex;
     justify-content: space-around;
     flex: 1 1 20rem;
+    z-index: 1000;
 }
 
 .navLinks a {
@@ -80,22 +110,31 @@ nav {
 
 .custom-btn {
     display: inline-block;
-    padding: 10px 20px; /* Ajusta el padding al tamaño que deseas */
+    padding: 10px 20px;
+    /* Ajusta el padding al tamaño que deseas */
     font-size: 17px;
     text-align: center;
-    text-decoration: none; /* Elimina el subrayado */
+    text-decoration: none;
+    /* Elimina el subrayado */
     border: none;
-    border-radius: 5px; /* Asegúrate de tener bordes redondeados */
-    background-color: #ffffff00; /* Ajusta el color de fondo */
-    color: rgb(0, 0, 0); /* Color de texto */
-    transition: background-color 0.3s, transform 0.2s ease; /* Transición suave */
-  }
+    border-radius: 5px;
+    /* Asegúrate de tener bordes redondeados */
+    background-color: #ffffff00;
+    /* Ajusta el color de fondo */
+    color: rgb(0, 0, 0);
+    /* Color de texto */
+    transition: background-color 0.3s, transform 0.2s ease;
+    /* Transición suave */
+}
 
-  .custom-btn:hover {
-    background-color: #f8f9fa; /* Cambia el color de fondo al pasar el ratón por encima */
-    border-color: #007bff; /* Cambia el color del borde al pasar el ratón */
-    color: rgb(253, 113, 113); /* Cambia el color del texto al pasar el ratón */
-  }
+.custom-btn:hover {
+    background-color: #f8f9fa;
+    /* Cambia el color de fondo al pasar el ratón por encima */
+    border-color: #007bff;
+    /* Cambia el color del borde al pasar el ratón */
+    color: rgb(253, 113, 113);
+    /* Cambia el color del texto al pasar el ratón */
+}
 
 /************************************* section gallery ****************************/
 
@@ -203,8 +242,10 @@ nav {
 /* Asegura que las imágenes del carrusel se adapten */
 .carousel-item img {
     width: 100%;
-    height: 100%;  /* Ajusta la altura al 100% del contenedor */
-    object-fit: contain;  /* Hace que la imagen no se recorte */
+    height: 100%;
+    /* Ajusta la altura al 100% del contenedor */
+    object-fit: contain;
+    /* Hace que la imagen no se recorte */
 }
 
 .divCuadro a {
@@ -233,7 +274,7 @@ nav {
 
 .carousel-item {
     position: relative;
-    text-align: center; 
+    text-align: center;
 }
 
 
@@ -276,7 +317,6 @@ nav {
 
 .service img {
     width: 100%;
-    height: 45vh;
     object-fit: cover;
 }
 
@@ -295,7 +335,7 @@ nav {
     width: 100%;
     justify-content: space-around;
     align-items: center;
-    background-color:var(--primario);
+    background-color: var(--primario);
     display: none;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
@@ -326,7 +366,7 @@ nav {
     border-radius: 15px;
 }
 
-.backToLogin{
+.backToLogin {
     cursor: pointer;
 }
 
@@ -364,6 +404,7 @@ input {
     height: 45vh;
     margin-bottom: 1rem;
 }
+
 .buttonReg {
     width: 40%;
     height: 8vh;
@@ -383,64 +424,6 @@ input {
 
 
 /* ***************************SALES************************/
-.salesContainer {
-    padding: 1rem;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-    max-width: 90%;
-}
-
-.titSales {
-    font-family: "Krub", sans-serif;
-    color: #ffffff;
-    text-align: center;
-}
-
-.salesTable {
-    overflow-x: auto;
-    margin-top: 1rem;
-}
-
-.salesTable,
-.tSales {
-    font-size: 13px;
-    background-color: #a00000;
-    color: #ffffff;
-}
-
-.salesTable,
-.thSales {
-    font-weight: 600;
-}
-
-.numberCot {
-    text-align: center;
-}
-
-.trSales2 {
-    font-size: .7em;
-    background-color: #ebebeb;
-    color: #525252;
-    height: 15vh;
-}
-
-.trSales1 {
-    font-size: .7em;
-    background-color: #ebebeb;
-    color: #525252;
-    height: 15vh;
-}
-
-.actionButtons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-/* ***************************NEW SALE************************/
-
 .newSalesContainer {
     width: 70%;
     padding: 2rem;
@@ -501,6 +484,20 @@ input {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+/* ***************************NEW SALE************************/
+
+.card {
+    margin-top: 20px;
+    margin-bottom: 34px;
+}
+
+.cardTittle {
+    display: flex;
+    gap: 25px;
+}
+
+
+
 /******************************* DASHBOARD ******************************/
 
 .dashboardContainer {
@@ -534,8 +531,10 @@ input {
 
 /************************************ USERS ****************************************/
 .usersContainer {
-    margin-top: 15%;
-    font-size: 12px;
+    font-size: 10px;
+    background-color: white;
+    border-radius: 20px;
+    text-align: center;
 }
 
 .usersTable {
@@ -545,8 +544,7 @@ input {
 }
 
 .usersTable th {
-    color: white;
-    background-color: rgb(3, 3, 3);
+    background-color: var(--primario);
 }
 
 .usersTable th,
@@ -577,12 +575,15 @@ input {
     border-radius: 4px;
 }
 
+.btn-outline-secondary {
+    font-size: 8px;
+}
+
 /************************************** Footer *********************************/
 .footer {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 30vh;
     background-color: var(--primario);
 }
 
@@ -595,7 +596,9 @@ input {
 
 .footerDos {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
+    gap: 70px;
+    margin-top: 20px;
 }
 
 .dateFooter {
@@ -606,7 +609,7 @@ input {
 }
 
 .imgContact {
-    height: 5vh;
+    height: 10vh;
     margin-left: 20px;
     margin-bottom: 10px;
     cursor: pointer;
@@ -619,16 +622,14 @@ input {
 
 .container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     background-color: var(--primario);
-    gap: 7rem;
 }
 
 .lista {
-    height: 100vh;
     gap: 1rem;
     display: flex;
-    flex-direction: column;
     justify-content: space-evenly;
 }
 
@@ -637,7 +638,7 @@ input {
 }
 
 .imgSvg {
-    height: 8vh;
+    height: 10vh;
 }
 
 /************************************ GALLERY ****************************************/
@@ -699,6 +700,11 @@ img {
     font-size: 1rem;
     text-align: center;
     line-height: 1.2;
+}
+
+.usersTable th,
+.usersTable td {
+    padding: 2px;
 }
 
 /*********************************** MediaQuerys ******************/
@@ -779,14 +785,15 @@ img {
         height: 100%;
     }
 
-    img {
+    .imgCarrusel {
         max-width: 100%;
         width: 30%;
         height: auto;
         display: block;
     }
 
-    .imglogo{
+
+    .imglogo {
         margin-top: 8%;
         width: 45%;
         height: 60vh;
@@ -795,23 +802,29 @@ img {
 
     .custom-btn {
         display: inline-block;
-        padding: 5px 15px; /* Ajusta el padding al tamaño que deseas */
+        padding: 5px 15px;
+        /* Ajusta el padding al tamaño que deseas */
         font-size: 14px;
         text-align: center;
-        text-decoration: none; /* Elimina el subrayado */
-        border-radius: 5px; /* Asegúrate de tener bordes redondeados */
-        background-color: #ffffff00; /* Ajusta el color de fondo */
-        color: rgb(0, 0, 0); /* Color de texto */
-        transition: background-color 0.3s, transform 0.2s ease; /* Transición suave */
-      }
+        text-decoration: none;
+        /* Elimina el subrayado */
+        border-radius: 5px;
+        /* Asegúrate de tener bordes redondeados */
+        background-color: #ffffff00;
+        /* Ajusta el color de fondo */
+        color: rgb(0, 0, 0);
+        /* Color de texto */
+        transition: background-color 0.3s, transform 0.2s ease;
+        /* Transición suave */
+    }
 
-      .navLinks {
+    .navLinks {
         display: flex;
         justify-content: space-around;
         flex: 1 1 20rem;
         gap: 1.8%;
     }
-    
+
     .navLinks a {
         color: #000000;
         transition: all 0.5s ease;
@@ -821,14 +834,16 @@ img {
         width: 40%;
     }
 
-/* Ajusta los márgenes y la disposición para pantallas grandes */
+    /* Ajusta los márgenes y la disposición para pantallas grandes */
 
     .carousel-item {
-        height: 500px;  /* Ajusta la altura del carrusel en pantallas grandes */
+        height: 500px;
+        /* Ajusta la altura del carrusel en pantallas grandes */
     }
 
     .carousel-item img {
-        object-position: center;  /* Asegura que las imágenes se mantengan centradas */
+        object-position: center;
+        /* Asegura que las imágenes se mantengan centradas */
     }
 
     /* Puedes ajustar la altura de los textos en las diapositivas para que no se sobrepongan */
@@ -838,7 +853,8 @@ img {
         left: 50%;
         transform: translateX(-50%);
         color: white;
-        font-size: 28px;  /* Aumenta el tamaño del texto en pantallas grandes */
+        font-size: 28px;
+        /* Aumenta el tamaño del texto en pantallas grandes */
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         background-color: rgba(0, 0, 0, 0.5);
         padding: 15px;
@@ -859,8 +875,10 @@ img {
 
 @media (min-width: 550px) {
     .usersContainer {
-        padding: 5% 7%;
         font-size: 20px;
+        background-color: white;
+        border-radius: 20px;
+        text-align: center;
     }
 
     .usersTable th,
