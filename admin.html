@@ -85,15 +85,15 @@
             <div class="newSalesContainer">
                 <h2>New Sales</h2>
                 <div class="newSalesForm">
-                    <label for="salesTitle">Title:</label>
-                    <input type="text" id="salesTitle" name="salesTitle" placeholder="Enter sale title">
+                    <label for="salesTitle">Email:</label>
+                    <input type="text" id="salesTitle" name="salesTitle" placeholder="Introduzca nombre">
 
-                    <label for="salesDescription">Description:</label>
-                    <textarea id="salesDescription" name="salesDescription"
-                        placeholder="Enter sale description"></textarea>
+                    <label for="salesDescription">Descripcion:</label>
+                    <textarea id="salesDescription" name=""
+                        placeholder="Agrega una descripcion sobre la decoracion o evento que tienes planeado"></textarea>
 
 
-                    <button type="submit">Add Sale</button>
+                        <button type="button" class="btn btn-outline-dark">Añadir Orden</button>
                 </div>
             </div>
         </template>
@@ -128,20 +128,66 @@
 <template id="users">
     <div class="usersContainer">
         <h2 class="tittleUsers">Users</h2>
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+            </div>
+          </nav>
         <table class="usersTable" id="usuariosTable">
             <thead class="trUsers">
-                <tr>
+                <tr class="trTittle">
                     <th>Id_User</th>
                     <th>Nombre</th>
                     <th>Email</th>
-                    <th>Detalle</th>
-                    <th>Rol</th>
+                    <th>Acciones</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
 
             </tbody>
         </table>
+
+
+
+        
+
+        <!-- -------------------Modal para editar cualquier usuario--------------- -->
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalCenterTitle">Editar usuario</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editForm">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo electrónico</label>
+              <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="rol" class="form-label">Rol</label>
+              <input type="text" class="form-control" id="rol" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="saveChangesBtn">Guardar cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
     </div>
 </template>
 
