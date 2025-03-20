@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>Client</title>
+    <link rel="stylesheet" href="./view/css/styles.css">
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+</head>
+
+
+<body>
+
+
+    <div class="background-container"></div>
+
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <nav>
+            <h1 id="logo">
+                <img src="./view/img/Logo.png" alt="">
+                Globo Studio
+            </h1>
+        </nav>
+
+        <div class="profile-icon" onclick="mostrarSidebar()">
+            <i class="bi bi-person-circle"></i> <!-- Ícono de perfil de Bootstrap -->
+        </div>
+    </header>
+    <!-- Barra lateral (Sidebar) -->
+    <aside class="sidebar" id="sidebar">
+        <button class="close-btn" onclick="cerrarSidebar()">X</button>
+        <ul>
+            <li onclick="mostrarProfile()"><i class="bi bi-person"></i> Perfil</li>
+            <li onclick="mostrarCotizaciones()"><i class="bi bi-file-earmark-text"></i> My Orders</li>
+            <li onclick="mostrarNewSale()"><i class="bi bi-file-earmark-text"></i> New Sale</li>
+            <li onclick="mostrarSettings()"><i class="bi bi-gear"></i> Ajustes</li>
+            <li onclick="cerrarSesion()"><i class="bi bi-box-arrow-right"></i> Cerrar Sesion</li>
+        </ul>
+    </aside>
+
+
+
+    <!-- Contenido dinámico -->
+    <main id="contenidoTemptlate">
+        <!-- Aquí se carga el contenido dinámico -->
+    </main>
+
+
+
+
+    <!-------------------------- Informacion del cliente ------------------------->
+
+    <template id="yourProfileTemplate">
+        <div class="profile-container">
+            <div class="profile-card">
+                <div class="profile-avatar" id="profileAvatar">O</div>
+                <h2 id="profileWelcome">Oscar pulido vargas</h2>
+                <ul class="profile-info">
+                    <li><strong>Email:</strong> <span id="profileEmail">pulidovargasoscar@gmail.com</span></li>
+                    <li><strong>Orders:</strong> <span id="profileStatus">Activo</span></li>
+                </ul>
+            </div>
+        </div>
+    </template>
+
+
+
+
+
+    <!-- ----------------------- Template para ordenes (cliente) -->
+
+    <template id="CotizacionesTemplate">
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Descripción:</h3>
+                    <p class="cardDescription"></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item direction"></li>
+                    <li class="list-group-item creation-date"></li>
+                    <li class="list-group-item delivery-date"></li>
+                    <li class="list-group-item cardStatus">Estado: </li>
+                </ul>
+                <div class="card-body">
+                    <button class="btn btn-warning edit-button-client" data-id="">Editar</button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Modal exclusivo para la vista de cliente -->
+    <div class="modal fade" id="editModalClient" tabindex="-1" aria-labelledby="editModalClientLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalClientLabel">Editar Orden</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3 needs-validation" novalidate>
+                        <div class="col-md-12">
+                            <label for="editDescriptionClient" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="editDescriptionClient" required></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="editDirectionClient" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" id="editDirectionClient" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="editDeliveryDateClient" class="form-label">Fecha de Entrega</label>
+                            <input type="datetime-local" class="form-control" id="editDeliveryDateClient" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="saveChangesButtonClient">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <!-- ----------------------- New Sale Client ------------------------------->
+        <template id="newSaleCliente">
+            <div class="newSalesContainer">
+              <h2>Nuevo Pedido</h2>
+              <form class="newSalesForm" id="orderForm">
+                <!-- Ya no necesitas el select para elegir al usuario -->
+                <input type="hidden" id="id_user" name="id_user" value=""> <!-- Aquí se asignará el ID automáticamente -->
+          
+                <label for="date_order">Fecha de Pedido:</label>
+                <input type="date" id="date_order" name="date_order" required>
+          
+                <label for="direction">Dirección:</label>
+                <input type="text" id="direction" name="direction" placeholder="Introduce la dirección de entrega" required>
+          
+                <label for="description">Descripción:</label>
+                <textarea id="description" name="description" placeholder="Agrega una descripción sobre el evento o pedido" required></textarea>
+          
+                <button type="button" class="btn btn-outline-dark" id="submitButton">Añadir Orden</button>
+              </form>
+            </div>
+          </template>
+          
+
+
+
+    <!---------------------------Ajsutes---------------------------->
+    <template id="ajustes">
+        <div class="settings-container">
+            <div class="settings-card">
+                <h2 class="settings-title">Ajustes</h2>
+
+                <div class="settings-group">
+                    <label for="edit-email">Cambiar Email:</label>
+                    <input type="email" id="edit-email" class="settings-input" placeholder="Nuevo email">
+                </div>
+
+
+                <div class="settings-group">
+                    <label for="change-password">Cambiar Contraseña:</label>
+                    <input type="password" id="change-password" class="settings-input" placeholder="Nueva contraseña">
+                </div>
+
+                <button class="save-btn">Guardar</button>
+            </div>
+        </div>
+
+    </template>
+
+
+    <footer><!------------------ footer -------------->
+        <h5 class="contact">Contáctanos</h5>
+        <div class="footer">
+            <div class="footerUno">
+                <p class="dateFooter">Celular: (+57) 314 211 99 46</p>
+                <p class="dateFooter">Bogotá, Colombia</p>
+                <p class="dateFooter">Envios unicamente en Bogotá.</p>
+                <p class="dateFooter">Síguenos en nuestras redes:</p>
+            </div>
+            <div class="footerDos">
+                <a href="https://www.facebook.com/share/1DfwVBr9ZL/" target="_blank">
+                    <img class="imgContact" src="/view/img/facebook.svg" alt="Facebook">
+                </a>
+                <a href="https://wa.me/3142119946" target="_blank">
+                    <img class="imgContact" src="/view/img/whatsapp.svg" alt="WhatsApp">
+                </a>
+                <a href="https://www.instagram.com/globo_arte_marthaperez?igsh=d3YycG52cDFyNWNw" target="_blank">
+                    <img class="imgContact" src="/view/img/instagram.svg" alt="Instagram">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/controller/controllerClient.js"></script>
+
+
+</body>
+
+</html>

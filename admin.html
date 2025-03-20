@@ -2,197 +2,261 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <title>Admin</title>
-    <link rel="stylesheet" href="/view/css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <title>Admin</title>
+  <link rel="stylesheet" href="/view/css/styles.css">
 </head>
 
 <body>
-    </header>
+  </header>
 
 
 
 
 
-    <div class="contenidoLogin">
-        <div class="container">
-            <nav>
-                <h1 id="logo">
-                    <img src="./view/img/Logo.png" alt="">
-                    Globo Studio
-                </h1>
-                <ul class="navLinks">
-                    <li class="liLogin" id="b-sales" onclick="mostrarSales()"> <button type="button"
-                            class="btn btn-outline-dark">Ordenes</button></li>
-                    <li class="liLogin" id="b-new-sale" onclick="mostrarNewSale()"><button type="button"
-                            class="btn btn-outline-dark">Nueva Orden</button></li>
-                    <li class="liLogin" id="b-Dashboard" onclick="mostrarDashboard()"><button type="button"
-                            class="btn btn-outline-dark">Dashboard</button></li>
-                    <li class="liLogin" id="b-" onclick="mostrarUsers()"><button type="button"
-                            class="btn btn-outline-dark">Users</button></li>
-                    <li><a href="./index.html"> <img class="imgSvg" src="/view/img/box.svg" alt=""></a></li>
+  <div class="contenidoLogin">
+    <div class="container">
+      <nav>
+        <h1 class="logoTitulo" id="logo">
+          <img src="./view/img/Logo.png" alt="">
+          Globo Studio
+        </h1>
+        <ul class="navLinks">
+          <li class="liLogin" id="b-sales" onclick="mostrarSales()"> <button type="button"
+              class="btn btn-outline-dark">Ordenes</button></li>
+          <li class="liLogin" id="b-new-sale" onclick="mostrarNewSale()"><button type="button"
+              class="btn btn-outline-dark">Nueva Orden</button></li>
+          <li class="liLogin" id="b-Dashboard" onclick="mostrarDashboard()"><button type="button"
+              class="btn btn-outline-dark">Dashboard</button></li>
+          <li class="liLogin" id="b-" onclick="mostrarUsers()"><button type="button"
+              class="btn btn-outline-dark">Users</button></li>
+          <li><a href="./index.html"> <img class="imgSvg" src="/view/img/box.svg" alt=""></a></li>
 
-                </ul>
-                <div class="burger">
-                    <span class="line1"></span>
-                    <span class="line2"></span>
-                    <span class="line3"></span>
-                </div>
-            </nav>
-
-            <main id="mainAdmin">
-
-            </main>
+        </ul>
+        <div class="burger">
+          <span class="line1"></span>
+          <span class="line2"></span>
+          <span class="line3"></span>
         </div>
+      </nav>
+
+      <main id="mainAdmin">
+
+      </main>
+    </div>
 
 
 
 
 
 
-        <!--------------------------------- MY SALES ------------------------------- -->
-        <template id="MySales">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <div class="cardTittle">
-                        <h5>1</h5>
-                        <h5>Michael Rubiano</h5>
-                    </div>
-                    <p class="cardDescription">Ejemplo decoracion para cumpleaños 1 arco, 20 centros de mesa,
-                        motocicleta en globoflexia, 15 globos con helio.</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Dírección:</li>
-                    <li class="list-group-item">Día de creación:</li>
-                    <li class="list-group-item">Día de entrega: </li>
-                </ul>
-                <div class="card-body">
-                    <button type="button" class="btn btn-outline-dark">Editar</button>
-                    <button type="button" class="btn btn-outline-success">Terminar</button>
-                    <button type="button" class="btn btn-outline-danger">Eliminar</button>
-                </div>
-            </div>
-        </template>
+    <!--------------------------------- MY SALES ------------------------------- -->
+    <template id="MySales">
+      <div class="card">
+          <div class="card-body">
+              <div class="cardTittle">
+                  <h5 class="order-id"></h5>  <!-- Aquí se colocará el ID de la orden -->
+                  <h5 class="user-name"></h5>  <!-- Aquí se colocará el nombre del usuario -->
+              </div>
+              <h3>Descripción:</h3>
+              <p class="cardDescription"></p> <!-- Aquí se colocará la descripción de la orden -->
+          </div>
+          <ul class="list-group list-group-flush">
+              <li class="list-group-item direction"></li>  <!-- Dirección de la orden -->
+              <li class="list-group-item creation-date"></li>  <!-- Fecha de creación -->
+              <li class="list-group-item delivery-date"></li>  <!-- Fecha de entrega -->
+              <li class="list-group-item cardStatus"></li>  <!-- Estado de la orden -->
+          </ul>
+          <div class="card-body">
+              <button class="btn btn-warning edit-button" data-id="">Editar</button>
+              <button type="button" class="btn btn-outline-danger delete-button" data-id="">Eliminar</button>
+          </div>
+      </div>
+  </template>
+  
+  
+
+
+    <!-- Modal al final del body -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">Editar Orden</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="row g-3 needs-validation" novalidate>
+              <!-- Campo de Descripción -->
+              <div class="col-md-12">
+                <label for="editDescription" class="form-label">Descripción</label>
+                <textarea class="form-control" id="editDescription" required></textarea>
+              </div>
+              <!-- Campo de Dirección -->
+              <div class="col-md-12">
+                <label for="editDirection" class="form-label">Dirección</label>
+                <input type="text" class="form-control" id="editDirection" required>
+              </div>
+              <!-- Campo de Fecha de Entrega -->
+              <div class="col-md-12">
+                <label for="editDeliveryDate" class="form-label">Fecha de Entrega</label>
+                <input type="datetime-local" class="form-control" id="editDeliveryDate" required>
+              </div>
+              <!-- Campo de Estado -->
+              <div class="col-md-12">
+                <label for="editStatus" class="form-label">Estado</label>
+                <select class="form-select" id="editStatus" required>
+                  <option value="en_proceso">En proceso</option>
+                  <option value="entregado">Entregado</option>
+                </select>
+              </div>
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" id="saveChangesButton">Guardar Cambios</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 
-        <!--------------------------------- NEW SALE ------------------------------- -->
-
-        <template id="newSale">
-            <div class="newSalesContainer">
-                <h2>New Sales</h2>
-                <div class="newSalesForm">
-                    <label for="salesTitle">Email:</label>
-                    <input type="text" id="salesTitle" name="salesTitle" placeholder="Introduzca nombre">
-
-                    <label for="salesDescription">Descripcion:</label>
-                    <textarea id="salesDescription" name=""
-                        placeholder="Agrega una descripcion sobre la decoracion o evento que tienes planeado"></textarea>
-
-
-                        <button type="button" class="btn btn-outline-dark">Añadir Orden</button>
-                </div>
-            </div>
-        </template>
 
 
 
-        <!--------------------------------- DASHBOARD ------------------------------- -->
-        <template id="dashboard">
-            <div class="dashboardContainer">
-                <h2 class="titDash">Dashboard</h2>
-                <div class="dashboardSummary">
-                    <div class="summaryItem">
-                        <h3>Total Sales</h3>
-                        <p>Number of sales made: <span id="totalSales">100</span></p>
-                    </div>
-                    <div class="summaryItem">
-                        <h3>Pending Sales</h3>
-                        <p>Number of pending sales: <span id="pendingSales">5</span></p>
-                    </div>
-                    <div class="summaryItem">
-                        <h3>Completed Sales</h3>
-                        <p>Number of completed sales: <span id="completedSales">90</span></p>
-                    </div>
-                </div>
-            </div>
-        </template>
+
+    <!--------------------------------- NEW SALE ------------------------------- -->
+
+    <template id="newSale">
+      <div class="newSalesContainer">
+        <h2>New Sale</h2>
+        <form class="newSalesForm" id="orderForm">
+          <label for="id_user">Usuario ID:</label>
+          <select name="id_user" id="id_user" required>
+            <!-- Las opciones de usuarios se llenarán dinámicamente -->
+          </select>
+
+          <label for="date_order">Fecha de Pedido:</label>
+          <input type="date" id="date_order" name="date_order" required>
+
+          <label for="direction">Dirección:</label>
+          <input type="text" id="direction" name="direction" placeholder="Introduce la dirección de entrega" required>
+
+          <label for="description">Descripción:</label>
+          <textarea id="description" name="description" placeholder="Agrega una descripción sobre el evento o pedido"
+            required></textarea>
+
+          <button type="button" class="btn btn-outline-dark" id="submitButton">Añadir Orden</button>
+        </form>
+      </div>
+    </template>
+
+
+
+
+
+
+
+    <!--------------------------------- DASHBOARD ------------------------------- -->
+    <template id="dashboard">
+      <div class="dashboardContainer">
+        <h2 class="titDash">Dashboard</h2>
+        <div class="dashboardSummary">
+          <div class="summaryItem">
+            <h3>Total Sales</h3>
+            <p>Number of sales made: <span id="totalSales">100</span></p>
+          </div>
+          <div class="summaryItem">
+            <h3>Pending Sales</h3>
+            <p>Number of pending sales: <span id="pendingSales">5</span></p>
+          </div>
+          <div class="summaryItem">
+            <h3>Completed Sales</h3>
+            <p>Number of completed sales: <span id="completedSales">90</span></p>
+          </div>
+        </div>
+      </div>
+    </template>
 
 
 </html>
 
-<!--------------------------------- users ------------------------------- -->
+<!---------------------------------  ------------------------------- -->
 <template id="users">
-    <div class="usersContainer">
-        <h2 class="tittleUsers">Users</h2>
-        <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid">
-              <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
-            </div>
-          </nav>
-        <table class="usersTable" id="usuariosTable">
-            <thead class="trUsers">
-                <tr class="trTittle">
-                    <th>Id_User</th>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Acciones</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
+  <div class="usersContainer">
+    <h2 class="tittleUsers">Users</h2>
+    <nav class="navbar bg-body-tertiary">
+      <div class="container-fluid">
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+    <table class="usersTable" id="usuariosTable">
+      <thead class="trUsers">
+        <tr class="trTittle">
+          <th>Id_User</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Acciones</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
 
-            </tbody>
-        </table>
-
-
-
-        
-
-        <!-- -------------------Modal para editar cualquier usuario--------------- -->
+      </tbody>
+    </table>
 
 
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalCenterTitle">Editar usuario</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="editForm">
-            <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nombre" required>
-            </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Correo electrónico</label>
-              <input type="email" class="form-control" id="email" required>
-            </div>
-            <div class="mb-3">
-              <label for="rol" class="form-label">Rol</label>
-              <input type="text" class="form-control" id="rol" required>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" id="saveChangesBtn">Guardar cambios</button>
+
+
+
+    <!-- -------------------Modal para editar cualquier usuario--------------- -->
+
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalCenterTitle">Editar usuario</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editForm">
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" required>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="email" required>
+              </div>
+              <div class="mb-3">
+                <label for="rol" class="form-label">Rol</label>
+                <input type="text" class="form-control" id="rol" required>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="saveChangesBtn">Guardar cambios</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-    </div>
 </template>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/view/js/vista.js"></script>
-<script src="/controller/controller.js"></script>
+<script src="/controller/menuController.js"></script>
+<script src="/controller/adminController.js"></script>
 </body>

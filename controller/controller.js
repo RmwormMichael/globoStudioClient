@@ -1,116 +1,110 @@
-let vista = null;
-
-window.onload = () => {
-    vista = new Vista();
-    mostrarArcos();
-    mostrarLogin();
-};
-
-/******************************** Menu inicio *****************/
-const nav = document.querySelector('.navLinks');
-const burger = document.querySelector('.burger');
-const links = nav.querySelectorAll("a");
-const buttons = nav.querySelectorAll("button"); // Seleccionamos los botones
-
-burger.addEventListener("click", () => {
-    nav.classList.toggle("nav-open");
-    burger.classList.toggle("toggle");
-});
-
-links.forEach(link => {
-    link.addEventListener("click", () => {
-        nav.classList.toggle("nav-open");
-        burger.classList.toggle("toggle");
-    });
-});
-
-// Cerrar el menú cuando se haga clic en los botones (Login, Register, etc.)
-buttons.forEach(button => {
-    button.addEventListener("click", () => {
-        nav.classList.remove("nav-open");
-        burger.classList.remove("toggle");
-    });
-});
 
 /* --------------------------------- Modal Login --------------------------------- */
+document.addEventListener("DOMContentLoaded", function () {
+    const exampleModal = document.getElementById('exampleModal'); // Obtiene el modal por su ID
 
-const exampleModal = document.getElementById('exampleModal')
-if (exampleModal) {
-    exampleModal.addEventListener('show.bs.modal', event => {
-        // Button that triggered the modal
-        const button = event.relatedTarget
-        // Extract info from data-bs-* attributes
-        const recipient = button.getAttribute('data-bs-whatever')
-        // If necessary, you could initiate an Ajax request here
-        // and then do the updating in a callback.
+    // Verifica si el modal existe en el documento antes de ejecutar el código
+    if (exampleModal) {
+        exampleModal.addEventListener('show.bs.modal', event => { 
+            // Evento que se activa cuando se muestra el modal
+            
+            const button = event.relatedTarget; // Botón que activó la apertura del modal
+            
+            // Extrae la información del atributo 'data-bs-whatever' del botón
+            const recipient = button.getAttribute('data-bs-whatever');
 
-        // Update the modal's content.
-        const modalTitle = exampleModal.querySelector('.modal-title')
-        const modalBodyInput = exampleModal.querySelector('.modal-body input')
+            // Aquí podrías hacer una petición AJAX si necesitas obtener datos dinámicamente
+            
+            // Actualiza el contenido del modal
+            const modalTitle = exampleModal.querySelector('.modal-title'); // Encuentra el título del modal
+            const modalBodyInput = exampleModal.querySelector('.modal-body input'); // Encuentra el campo de entrada dentro del modal
+            
+            if (modalTitle && modalBodyInput) { // Verifica que los elementos existen antes de usarlos
+                modalTitle.textContent = `Nuevo mensaje para ${recipient}`; // Cambia el título con el dato extraído
+                modalBodyInput.value = recipient; // Inserta el dato en el campo de entrada
+            }
+        });
+    }
 
-        modalTitle.textContent = `New message to ${recipient}`
-        modalBodyInput.value = recipient
-    })
-}
-/*************************** Template Login ********************/
+    /*************************** Modal Login ********************/
 
+    // Escuchar el clic del botón "Iniciar sesión" para abrir el modal
+    const loginBtn = document.getElementById('loginBtn');
+    if (loginBtn) {
+        loginBtn.addEventListener('click', function () {
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            const modalActionBtn = document.getElementById('modalActionBtn');
 
-// Escuchar el clic del botón "Iniciar sesión" para abrir el modal
-document.getElementById('loginBtn').addEventListener('click', function () {
-    // Cambiar título y contenido del formulario a login
-    document.getElementById('modalTitle').textContent = 'Inicia sesión';
-    document.getElementById('modalBody').innerHTML = `
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-        </div>
-        <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputPassword">
-            </div>
-        </div>
-    `;
-    document.getElementById('modalActionBtn').textContent = 'Iniciar sesión';
+            if (modalTitle && modalBody && modalActionBtn) { // Verifica que los elementos existen
+                modalTitle.textContent = 'Iniciar sesión';
+                modalBody.innerHTML = `
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword">
+                        </div>
+                    </div>
+                `;
+                modalActionBtn.textContent = 'Iniciar sesión';
+            } else {
+                console.error("No se encontró el modal en el DOM.");
+            }
+        });
+    }
 });
-
 
 
 
 
 // Escuchar el clic del botón "Registrarse" para abrir el modal
-document.getElementById('registerBtn').addEventListener('click', function () {
-    // Cambiar título y contenido del formulario a register
-    document.getElementById('modalTitle').textContent = 'Crear cuenta';
-    document.getElementById('modalBody').innerHTML = `
-        <div class="mb-3">
-            <label for="inputName" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="inputName" placeholder="Nombre Completo">
-            </div>
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="emailRegister" placeholder="name@example.com">
-        </div>
-        <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputPassword">
-            </div>
-        </div>
-    `;
-    document.getElementById('modalActionBtn').textContent = 'Registrar';
+
+
+// Esperar a que el DOM esté completamente cargado antes de ejecutar el código
+document.addEventListener("DOMContentLoaded", function () {
+    const registerBtn = document.getElementById('registerBtn');
+    
+    if (registerBtn) {
+        registerBtn.addEventListener('click', function () {
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            const modalActionBtn = document.getElementById('modalActionBtn');
+
+            // Verificar que los elementos existen antes de modificarlos
+            if (modalTitle && modalBody && modalActionBtn) {
+                modalTitle.textContent = 'Crear cuenta';
+                modalBody.innerHTML = `
+                    <div class="mb-3">
+                        <label for="inputName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="inputName" placeholder="Nombre Completo">
+                    </div>
+                    <div class="mb-3">
+                        <label for="emailRegister" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="emailRegister" placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword">
+                        </div>
+                    </div>
+                `;
+                modalActionBtn.textContent = 'Registrar';
+            } else {
+                console.error("No se encontró el modal en el DOM.");
+            }
+        });
+    }
 });
 
 
-function mostrarRecovery() {
-    vista.mostrarPlantilla("recoveryTemp", "account")
-}
 
 
-
-
-
-/***********************************Fetch *******************************/
+/*********************************** Fetch *******************************/
 
 
 // Escuchar el clic del botón "Iniciar sesión" para iniciar sesión
@@ -137,16 +131,17 @@ document.getElementById("modalActionBtn").addEventListener("click", async () => 
         localStorage.setItem("usuario", JSON.stringify(data.usuario));
 
         // Redirigir según el rol
-        if (data.usuario.rol === "admin") {
-            window.location.href = "/cliente.html";
-        } else {
+        if (data.usuario.rol == "admin") {
+            console.log(data.usuario.rol);  
             window.location.href = "/admin.html";
+        } else {
+            console.log(data.usuario.rol);  
+            window.location.href = "/client.html";
         }
     } catch (error) {
         console.error("Error en la autenticación", error);
     }
 });
-
 
 
 
@@ -210,198 +205,8 @@ document.getElementById('modalActionBtn').addEventListener('click', async functi
 });
 
 
-/*********************************** ADMIN *****************************/
-function mostrarSales() {
-    vista.mostrarPlantilla("MySales", "mainAdmin")
-}
-
-function mostrarNewSale() {
-    vista.mostrarPlantilla("newSale", "mainAdmin")
-}
-
-function mostrarDashboard() {
-    vista.mostrarPlantilla("dashboard", "mainAdmin")
-}
-
-function mostrarPoints() {
-    vista.mostrarPlantilla("points", "mainAdmin")
-}
-
-function mostrarUsers() {
-    vista.mostrarPlantilla("users", "mainAdmin"); // Cambia la plantilla
-
-    // Esperar a que la plantilla se cargue antes de obtener los usuarios
-    setTimeout(() => {
-        obtenerUsuarios(); // Llamamos a la función para cargar la tabla
-    }, 100); // Pequeño delay para asegurar que la plantilla se renderice
-}
-
-
-/*******************************************Tabla usuarios */
-
-document.addEventListener("DOMContentLoaded", () => {
-    const usersLink = document.querySelector("#usersLink"); // Asegúrate de que el botón/toggle tiene este ID
-
-    if (usersLink) {
-        usersLink.addEventListener("click", () => {
-            console.log("Cargando usuarios...");
-            obtenerUsuarios(); // Llamamos la función SOLO cuando se accede a la sección de Users
-        });
-    }
-});
-
-
-async function obtenerUsuarios() {
-    try {
-        const response = await fetch('http://localhost:4000/api/usuarios/usuarios'); // Verifica la ruta correcta
-        const usuarios = await response.json();
-
-        const tableBody = document.querySelector("#usuariosTable tbody");
-        tableBody.innerHTML = ""; // Limpiar antes de agregar nuevos datos
-
-        usuarios.forEach(usuario => {
-            const fila = document.createElement("tr");
-            fila.innerHTML = `
-                <td>${usuario.id_user}</td>
-                <td>${usuario.nombre}</td>
-                <td>${usuario.email}</td>
-                <td>
-                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" 
-                        data-id="${usuario.id_user}" data-nombre="${usuario.nombre}" data-email="${usuario.email}">
-                        Editar
-                    </button>
-                </td>
-
-
-                <td>
-                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"></path>
-                        </svg>
-                    </button>
-
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminiar Usuario</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                ¿Estás seguro de que deseas eliminar este usuario?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-primary btnEliminar">Eliminar</button>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            `;
-            tableBody.appendChild(fila);
-        });
-
-        // Configuramos el evento para cargar los datos del usuario al abrir el modal
-        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
-            button.addEventListener('click', function () {
-                const id = this.getAttribute('data-id');
-                const nombre = this.getAttribute('data-nombre');
-                const email = this.getAttribute('data-email');
-
-                // Llenamos los campos del modal con los datos del usuario
-                document.getElementById('nombre').value = nombre;
-                document.getElementById('email').value = email;
-
-                // Agregamos un evento al botón "Guardar cambios"
-                const saveButton = document.getElementById('saveChangesBtn');
-                saveButton.onclick = () => guardarCambios(id);
-            });
-        });
-
-    } catch (error) {
-        console.error("Error al obtener los usuarios:", error);
-    }
-}
-
-async function guardarCambios(id) {
-    const nombre = document.getElementById('nombre').value;
-    const email = document.getElementById('email').value;
-
-    // Validación: asegúrate de que los campos no estén vacíos
-    if (!nombre || !email) {
-        alert('Por favor, complete todos los campos.');
-        return;
-    }
-
-    try {
-        const response = await fetch(`http://localhost:4000/api/usuarios/usuarios/${id}`, {
-            method: 'PUT', // Usamos el método PUT para actualizar
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                nombre: nombre,
-                email: email
-            })
-        });
-
-        if (response.ok) {
-            alert('Usuario actualizado exitosamente');
-            // Cierra el modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModalCenter'));
-            modal.hide();
-
-            // Refresca la lista de usuarios
-            obtenerUsuarios();
-        } else {
-            alert('Error al actualizar el usuario');
-        }
-
-    } catch (error) {
-        console.error("Error al guardar cambios:", error);
-        alert('Ocurrió un error al actualizar el usuario');
-    }
-}
-
-
-// Cargar los usuarios cuando la página cargue
-document.addEventListener('DOMContentLoaded', obtenerUsuarios);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* CLIENT */
-
-function mostrarProfile() {
-    vista.mostrarPlantilla("profile", "contenidoTemptlate")
-}
-
-function mostrarSettings() {
-    vista.mostrarPlantilla("settings", "contenidoTemptlate")
-}
-
-/* Galeria */
-
-function mostrarArcos() {
-    vista.mostrarPlantilla("arcos", "mainCategory")
-}
-
-function mostrarBouquets() {
-    vista.mostrarPlantilla("bouquets", "mainCategory")
-}
-
-function mostrarDiseños() {
-    vista.mostrarPlantilla("diseños", "mainCategory")
+function mostrarRecovery() {
+    vista.mostrarPlantilla("recoveryTemp", "account")
 }
 
 
@@ -424,3 +229,6 @@ window.onscroll = function () {
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+
+
