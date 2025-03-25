@@ -30,10 +30,9 @@ td {
 /************************************ header *************************/
 
 header {
-    background-color: var(--primario);
-    color: rgba(230, 62, 62, 0.7);
     align-items: center;
     padding: 0rem 2rem;
+    background-color: #ddd;
 }
 
 .logoTitulo {
@@ -57,7 +56,10 @@ header {
 
 
 .contenidoLogin {
-    background-color: var(--primario);
+    background-image: url(/view/img/fondoUno.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     min-height: 100vh;
 }
 
@@ -169,8 +171,10 @@ nav {
 
 .galeria {
     padding-bottom: 20px;
-    padding-top: 40px;
-    background-color: var(--primario);
+    padding-top: 20px;
+    background-image: url(/view/img/Auno.jpg);
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 
@@ -183,16 +187,13 @@ nav {
     height: 100%;
 }
 
-.imglogo {
-    margin-top: 4rem;
-}
 
 .parrafoPrimero {
-    background-color: #eeeeee;
+    background-color: #eeeeee4d;
     text-align: center;
     font-size: 1rem;
     line-height: 1.5;
-    margin: 2.5rem 3rem;
+    margin: 2rem 3rem;
     border-radius: 15px;
     padding: 20px;
 }
@@ -259,11 +260,11 @@ nav {
 
 /* Asegura que las imágenes del carrusel se adapten */
 .carousel-item img {
-    width: 100%;
+    width: 85%;
     height: 100%;
     /* Ajusta la altura al 100% del contenedor */
-    object-fit: contain;
-    /* Hace que la imagen no se recorte */
+    object-fit: contain; /* Hace que la imagen no se recorte */
+    margin: auto;
 }
 
 .divCuadro a {
@@ -285,9 +286,18 @@ nav {
 /**************************************** section Dos ****************************/
 
 .section2 {
-    background-color: var(--primario);
+    background-image: url(/view/img/atres.jpg);
+    background-size: cover;
     margin-top: 2rem;
     padding: 3rem 2rem;
+    height: 100vh;
+}
+
+.contentSectionDos {
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+    margin: 5vh 4.5vh;
 }
 
 .carousel-item {
@@ -344,6 +354,11 @@ nav {
 
 .service p {
     text-align: center;
+    margin: 2.5vh 4vh;
+}
+
+.tittleIndex {
+    margin-bottom: 3vh;
 }
 
 
@@ -518,7 +533,7 @@ input {
     border-radius: 12px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
     max-width: 800px;
-    margin: 2rem 2rem;
+    margin: 3rem 2rem;
     border: 1px solid #e0e0e0;
 }
 
@@ -543,10 +558,7 @@ input {
 
 /************************************ USERS ****************************************/
 .usersContainer {
-    font-size: 10px;
-    background-color: white;
-    border-radius: 20px;
-    text-align: center;
+    margin: 22% 0%;
 }
 
 .usersTable {
@@ -610,20 +622,14 @@ input {
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: var(--primario);
+    background-color: #ddd;
 }
 
-.contact {
-    padding: 10px;
-    font-size: 1.2rem;
-    background-color: var(--primario);
-    margin-bottom: 0;
-}
 
 .footerDos {
     display: flex;
     justify-content: flex-start;
-    gap: 40px;
+    gap: 12vh;
     margin-top: 20px;
     margin-left: 4vh;
 }
@@ -647,6 +653,7 @@ input {
 
 
 .container {
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -676,6 +683,10 @@ input {
     color: black;
     background-color: var(--primario);
     border-color: var(--primario);
+}
+
+.navAdmin {
+    background-color: #ddd;
 }
 
 
@@ -712,8 +723,8 @@ img {
 .navCategory {
     display: flex;
     justify-content: space-evenly;
-    background-color: rgba(255, 255, 255, 0.801);
     margin-top: 30px;
+    gap: 4vh;
 }
 
 .category {
@@ -783,7 +794,6 @@ body {
     justify-content: flex-end;
     align-items: center;
     height: 80px;
-    background-color: var(--primario);
     padding: 0 20px;
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -796,8 +806,7 @@ body {
 }
 
 #contenidoTemptlate {
-    padding-top: 70px; /* Ajusta según la altura de la barra */
-    height: 100vh;
+    padding-top: 15vh; /* Ajusta según la altura de la barra */
 }
 
 /* Icono de perfil */
@@ -951,79 +960,6 @@ body {
     margin: 5px 0;
 }
 
-/************************************** Mis cotizaciones **************************/
-
-
-
-
-
-
-
-
-
-
-
-/****************************** Ajustes ************************************/
-.settings-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100%;
-}
-
-.settings-card {
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(4px);
-    padding: 50px;
-    border-radius: 15px;
-    box-shadow: 2px 7px 20px 0px rgb(0 0 0 / 27%);    
-    max-width: 500px;
-    width: 90%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.settings-title {
-    font-size: 24px;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.settings-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-}
-
-.settings-group label {
-    font-weight: bold;
-}
-
-.settings-group span {
-    background: rgba(255, 255, 255, 0.6);
-    padding: 8px;
-    border-radius: 5px;
-}
-
-.settings-input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.save-btn {
-    background: #007bff;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-}
-
 
 
 /*********************************** MediaQuerys ******************/
@@ -1052,7 +988,7 @@ body {
     }
 
     .navLinks {
-        background: var(--primario);
+        background: #ddd;
         width: 40%;
         height: 60%;
         position: fixed;
@@ -1197,7 +1133,7 @@ body {
 @media (min-width: 550px) {
     .usersContainer {
         font-size: 20px;
-        background-color: white;
+        background-color: #ffffffa1;
         border-radius: 20px;
         text-align: center;
     }

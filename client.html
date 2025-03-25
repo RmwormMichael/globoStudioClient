@@ -39,7 +39,6 @@
             <li onclick="mostrarProfile()"><i class="bi bi-person"></i> Perfil</li>
             <li onclick="mostrarCotizaciones()"><i class="bi bi-file-earmark-text"></i> My Orders</li>
             <li onclick="mostrarNewSale()"><i class="bi bi-file-earmark-text"></i> New Sale</li>
-            <li onclick="mostrarSettings()"><i class="bi bi-gear"></i> Ajustes</li>
             <li onclick="cerrarSesion()"><i class="bi bi-box-arrow-right"></i> Cerrar Sesion</li>
         </ul>
     </aside>
@@ -53,22 +52,74 @@
 
 
 
+    <footer><!------------------ footer -------------->
+        
+        <div class="footer">
+            <h5 class="contact">Contáctanos</h5>
+            <div class="footerUno">
+                <p class="dateFooter">Celular: (+57) 314 211 99 46</p>
+                <p class="dateFooter">Bogotá, Colombia</p>
+                <p class="dateFooter">Síguenos en nuestras redes:</p>
+            </div>
+            <div class="footerDos">
+                <a href="https://www.facebook.com/share/1DfwVBr9ZL/" target="_blank">
+                    <img class="imgContact" src="/view/img/facebook.svg" alt="Facebook">
+                </a>
+                <a href="https://wa.me/3142119946" target="_blank">
+                    <img class="imgContact" src="/view/img/whatsapp.svg" alt="WhatsApp">
+                </a>
+                <a href="https://www.instagram.com/globo_arte_marthaperez?igsh=d3YycG52cDFyNWNw" target="_blank">
+                    <img class="imgContact" src="/view/img/instagram.svg" alt="Instagram">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+
+
 
     <!-------------------------- Informacion del cliente ------------------------->
 
     <template id="yourProfileTemplate">
         <div class="profile-container">
             <div class="profile-card">
-                <div class="profile-avatar" id="profileAvatar">O</div>
-                <h2 id="profileWelcome">Oscar pulido vargas</h2>
+                <h2 id="profileWelcome">profile name:</h2>
                 <ul class="profile-info">
-                    <li><strong>Email:</strong> <span id="profileEmail">pulidovargasoscar@gmail.com</span></li>
-                    <li><strong>Orders:</strong> <span id="profileStatus">Activo</span></li>
+                    <li><strong>Email:</strong> <span id="profileEmail"></span></li>
                 </ul>
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#clienteModal" onclick="cargarDatosCliente()">Editar Perfil</button>
             </div>
         </div>
     </template>
 
+
+    <div class="modal fade" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="clienteModalTitle">Editar perfil</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="clienteEditForm">
+                <div class="mb-3">
+                  <label for="clienteNombre" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="clienteNombre" required>
+                </div>
+                <div class="mb-3">
+                  <label for="clienteEmail" class="form-label">Correo electrónico</label>
+                  <input type="email" class="form-control" id="clienteEmail" required>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary" id="clienteSaveChangesBtn">Guardar cambios</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
 
 
 
@@ -129,77 +180,31 @@
     </div>
 
 
-        <!-- ----------------------- New Sale Client ------------------------------->
-        <template id="newSaleCliente">
-            <div class="newSalesContainer">
-              <h2>Nuevo Pedido</h2>
-              <form class="newSalesForm" id="orderForm">
-                <!-- Ya no necesitas el select para elegir al usuario -->
-                <input type="hidden" id="id_user" name="id_user" value=""> <!-- Aquí se asignará el ID automáticamente -->
-          
-                <label for="date_order">Fecha de Pedido:</label>
-                <input type="date" id="date_order" name="date_order" required>
-          
+    <!-- ----------------------- New Sale Client ------------------------------->
+    <template id="newSaleCliente">
+        <div class="newSalesContainer">
+            <h2>Nuevo Pedido</h2>
+            <form class="newSalesForm" id="orderForm">
+                <input type="hidden" id="id_user" name="id_user" value=""> <!-- ID del usuario logueado -->
+    
+                <label for="date_order">Fecha y Hora de Pedido:</label>
+                <input type="datetime-local" id="date_order" name="date_order" required>  <!-- Fecha + Hora -->
+    
                 <label for="direction">Dirección:</label>
                 <input type="text" id="direction" name="direction" placeholder="Introduce la dirección de entrega" required>
-          
+    
                 <label for="description">Descripción:</label>
                 <textarea id="description" name="description" placeholder="Agrega una descripción sobre el evento o pedido" required></textarea>
-          
+    
                 <button type="button" class="btn btn-outline-dark" id="submitButton">Añadir Orden</button>
-              </form>
-            </div>
-          </template>
-          
-
-
-
-    <!---------------------------Ajsutes---------------------------->
-    <template id="ajustes">
-        <div class="settings-container">
-            <div class="settings-card">
-                <h2 class="settings-title">Ajustes</h2>
-
-                <div class="settings-group">
-                    <label for="edit-email">Cambiar Email:</label>
-                    <input type="email" id="edit-email" class="settings-input" placeholder="Nuevo email">
-                </div>
-
-
-                <div class="settings-group">
-                    <label for="change-password">Cambiar Contraseña:</label>
-                    <input type="password" id="change-password" class="settings-input" placeholder="Nueva contraseña">
-                </div>
-
-                <button class="save-btn">Guardar</button>
-            </div>
+            </form>
         </div>
-
     </template>
+    
 
 
-    <footer><!------------------ footer -------------->
-        <h5 class="contact">Contáctanos</h5>
-        <div class="footer">
-            <div class="footerUno">
-                <p class="dateFooter">Celular: (+57) 314 211 99 46</p>
-                <p class="dateFooter">Bogotá, Colombia</p>
-                <p class="dateFooter">Envios unicamente en Bogotá.</p>
-                <p class="dateFooter">Síguenos en nuestras redes:</p>
-            </div>
-            <div class="footerDos">
-                <a href="https://www.facebook.com/share/1DfwVBr9ZL/" target="_blank">
-                    <img class="imgContact" src="/view/img/facebook.svg" alt="Facebook">
-                </a>
-                <a href="https://wa.me/3142119946" target="_blank">
-                    <img class="imgContact" src="/view/img/whatsapp.svg" alt="WhatsApp">
-                </a>
-                <a href="https://www.instagram.com/globo_arte_marthaperez?igsh=d3YycG52cDFyNWNw" target="_blank">
-                    <img class="imgContact" src="/view/img/instagram.svg" alt="Instagram">
-                </a>
-            </div>
-        </div>
-    </footer>
+
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

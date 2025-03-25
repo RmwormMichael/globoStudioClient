@@ -25,7 +25,7 @@ function mostrarUsers() {
 
 
 
-/*******************************************             USERS             ****************************************/
+/*******************************************USERS             ****************************************/
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -198,6 +198,14 @@ function mostrarNewSale() {
             submitButton.addEventListener("click", async (event) => {
                 event.preventDefault();
 
+                const token = localStorage.getItem("token");  // 🔥 Obtiene el token
+
+                if (!token) {
+                    alert("No estás autenticado. Inicia sesión.");
+                    window.location.href = "/login.html";  // Redirige al login si no hay token
+                    return;
+                }
+
                 const id_user = document.getElementById("id_user").value;
                 const date_order = document.getElementById("date_order").value;
                 const direction = document.getElementById("direction").value;
@@ -211,7 +219,7 @@ function mostrarNewSale() {
                 const status = "en_proceso";
 
                 const orderData = {
-                    id_user,
+                    id_user,          // ID seleccionado desde el select
                     status,
                     date_order,
                     direction,
@@ -223,6 +231,7 @@ function mostrarNewSale() {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`  // 🔥 Agrega el token aquí
                         },
                         body: JSON.stringify(orderData),
                     });
@@ -233,7 +242,7 @@ function mostrarNewSale() {
                         alert('¡Pedido creado correctamente!');
                         document.getElementById("orderForm").reset();
                     } else {
-                        alert('Error al crear el pedido: ' + result.msg);
+                        alert(`Error al crear el pedido: ${result.msg}`);
                     }
                 } catch (error) {
                     console.error("Error al enviar el formulario:", error);
@@ -244,7 +253,7 @@ function mostrarNewSale() {
     }
 }
 
-
+ 
 
 // Función para cargar los usuarios desde la API y llenar el select
 
@@ -288,26 +297,36 @@ async function cargarUsuarios() {
 
 //********************************** card para mostrar las ordenes **************************** */
 async function mostrarSales() {
-    // Limpiar el contenedor donde se insertarán las tarjetas (ventas)
     const container = document.getElementById("mainAdmin");
-    container.innerHTML = "";  // Elimina cualquier contenido previo
+    container.innerHTML = "";
 
-    // Obtener las órdenes y los usuarios
+    const token = localStorage.getItem("token");  // 🔥 Obtiene el token del localStorage
+
+    if (!token) {
+        alert("No estás autenticado. Inicia sesión.");
+        window.location.href = "/client.html";
+        return;
+    }
+
     try {
         const [ordersResponse, usersResponse] = await Promise.all([
-            fetch('http://localhost:4000/api/orders/orders'),  // Obtener las órdenes
-            fetch('http://localhost:4000/api/usuarios/usuarios')  // Obtener los usuarios
+            fetch('http://localhost:4000/api/orders/orders', {  
+                headers: { 'Authorization': `Bearer ${token}` }  // 🔥 Agrega el token
+            }),
+            fetch('http://localhost:4000/api/usuarios/usuarios', {
+                headers: { 'Authorization': `Bearer ${token}` }  // 🔥 Agrega el token
+            })
         ]);
+
+        if (!ordersResponse.ok || !usersResponse.ok) {
+            throw new Error("Error al obtener las órdenes o los usuarios.");
+        }
 
         const orders = await ordersResponse.json();
         const users = await usersResponse.json();
 
-        // Para cada orden, agregarla como tarjeta en el DOM
         orders.forEach(order => {
-            // Buscar el usuario correspondiente por id_user
             const user = users.find(u => u.id_user === order.id_user);
-
-            // Crear la tarjeta para cada orden
             crearCard(order, user, container);
         });
     } catch (error) {
@@ -315,6 +334,7 @@ async function mostrarSales() {
         alert("Hubo un error al obtener los datos.");
     }
 }
+
 
 
 
@@ -364,33 +384,39 @@ let currentUserId = null; // Guardar el id del usuario
 document.addEventListener('click', async (e) => {
     if (e.target.classList.contains('edit-button')) {
         currentOrderId = e.target.getAttribute('data-id');
+
         if (!currentOrderId) {
             console.error("ID de orden no encontrado.");
             return;
         }
 
+        const token = localStorage.getItem("token");  // 🔥 Obtiene el token
+
+        if (!token) {
+            alert("No estás autenticado. Inicia sesión.");
+            window.location.href = "/login.html";
+            return;
+        }
+
         try {
-            const response = await fetch(`http://localhost:4000/api/orders/orders/${currentOrderId}`);
+            const response = await fetch(`http://localhost:4000/api/orders/orders/${currentOrderId}`, {
+                headers: { "Authorization": `Bearer ${token}` }  // 🔥 Agrega el token
+            });
+
             if (!response.ok) throw new Error("Orden no encontrada");
 
             const order = await response.json();
+            currentUserId = order.id_user;
 
-            // Guardar el id del usuario
-            currentUserId = order.id_user; 
-
-            // Llenar los campos con los datos de la orden
             document.getElementById('editDescription').value = order.description || '';
             document.getElementById('editDirection').value = order.direction || '';
 
-            // Convertir fecha al formato YYYY-MM-DDTHH:MM
             const orderDate = new Date(order.date_order);
             const formattedDate = orderDate.toISOString().slice(0, 16);
             document.getElementById('editDeliveryDate').value = formattedDate;
 
-            // Establecer el estado actual en el select
             document.getElementById('editStatus').value = order.status || 'en_proceso';
 
-            // Abrir el modal
             const modalElement = document.getElementById('editModal');
             const modal = new bootstrap.Modal(modalElement);
             modal.show();
@@ -400,6 +426,8 @@ document.addEventListener('click', async (e) => {
         }
     }
 });
+
+
 
 /***************************************** BOTON GUARDAR CAMBIOS*********************** */
 document.getElementById("saveChangesButton").addEventListener("click", async () => {
@@ -418,11 +446,21 @@ document.getElementById("saveChangesButton").addEventListener("click", async () 
         id_user: currentUserId  // Asegurar que no se borre el usuario
     };
 
+    // 🔥 Obtener el token almacenado (suponiendo que lo guardaste en localStorage)
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        console.error("No hay token disponible.");
+        alert("Error de autenticación. Debes iniciar sesión nuevamente.");
+        return;
+    }
+
     try {
         const response = await fetch(`http://localhost:4000/api/orders/orders/${currentOrderId}`, {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}` // 🔥 Agregar el token aquí
             },
             body: JSON.stringify(updatedOrder)
         });
@@ -443,6 +481,7 @@ document.getElementById("saveChangesButton").addEventListener("click", async () 
         alert("No se pudo actualizar la orden.");
     }
 });
+
 
 
 
@@ -480,28 +519,31 @@ document.addEventListener("click", async (e) => {
     if (e.target.classList.contains("delete-button")) {
         const orderId = e.target.getAttribute("data-id");
 
-        console.log("ID de orden a eliminar:", orderId); // 🔥 Verifica que el ID es correcto
-
-        if (!orderId || orderId === "ORDER_ID") {
-            console.error("ID de orden no válido:", orderId);
-            alert("Error: No se pudo obtener el ID de la orden.");
+        if (!orderId) {
+            alert("ID no válido.");
             return;
         }
 
-        // Confirmación antes de eliminar
+        const token = localStorage.getItem("token");  // 🔥 Obtiene el token
+
+        if (!token) {
+            alert("No estás autenticado. Inicia sesión.");
+            window.location.href = "/login.html";
+            return;
+        }
+
         const confirmDelete = confirm("¿Estás seguro de que deseas eliminar esta orden?");
         if (!confirmDelete) return;
 
         try {
-            const response = await fetch(`http://localhost:4000/api/orders/orders/${orderId}`, { 
-                method: "DELETE"
+            const response = await fetch(`http://localhost:4000/api/orders/orders/${orderId}`, {
+                method: "DELETE",
+                headers: { "Authorization": `Bearer ${token}` }  // 🔥 Agrega el token
             });
 
             if (!response.ok) throw new Error("Error al eliminar la orden.");
 
-            // Eliminar la tarjeta del DOM
             e.target.closest(".card").remove();
-
             alert("Orden eliminada con éxito.");
         } catch (error) {
             console.error("Error al eliminar la orden:", error);
@@ -509,6 +551,7 @@ document.addEventListener("click", async (e) => {
         }
     }
 });
+
 
 
 

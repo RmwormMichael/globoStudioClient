@@ -1,5 +1,5 @@
 window.onload = () => {
-    mostrarNewSale();
+    mostrarProfile();
 }
 /* ****************************** pagina cliente ****************************/
 
@@ -36,7 +36,7 @@ function cerrarSesion() {
 window.cerrarSesion = cerrarSesion;
 
 
-/***************your profile¨**********************************************************************/
+/***************   Your Profile¨**********************************************************************/
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM cargado correctamente");
 });
@@ -47,41 +47,11 @@ function mostrarProfile() {
 
     if (template && contenido) {
         let clon = template.content.cloneNode(true);
-        contenido.innerHTML = ""; // Limpiar contenido previo
+        contenido.innerHTML = "";  // Limpiar contenido previo
         contenido.appendChild(clon);
-    } else {
-        console.error("Error: No se encontró el template o el contenedor.");
-    }
-}
 
-/***************your New sale **********************************************************************/
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("DOM cargado correctamente");
-});
-
-function mostrarNewSale() {
-    let template = document.getElementById("newSaleClient");
-    let contenido = document.getElementById("contenidoTemptlate");
-
-    if (template && contenido) {
-        let clon = template.content.cloneNode(true);
-        contenido.innerHTML = ""; // Limpiar contenido previo
-        contenido.appendChild(clon);
-    } else {
-        console.error("Error: No se encontró el template o el contenedor.");
-    }
-}
-
-
-/*****************************************Ajustes*********************************/
-function mostrarSettings() {
-    let template = document.getElementById("ajustes");
-    let contenido = document.getElementById("contenidoTemptlate");
-
-    if (template && contenido) {
-        let clon = template.content.cloneNode(true);
-        contenido.innerHTML = ""; // Limpia el contenido anterior
-        contenido.appendChild(clon);
+        // Llama a la función para obtener el perfil del usuario
+        obtenerPerfil();
     } else {
         console.error("Error: No se encontró el template o el contenedor.");
     }
@@ -89,29 +59,179 @@ function mostrarSettings() {
 
 
 
+async function obtenerPerfil() {
+    const token = localStorage.getItem("token");  // Obtén el token del localStorage
 
+    if (!token) {
+        console.error("No hay token disponible");
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:4000/api/usuarios/perfil", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("No se pudo obtener el perfil");
+        }
+
+        const usuario = await response.json();
+
+        // Insertar datos en el DOM
+        document.getElementById("profileWelcome").textContent = `Profile: ${usuario.nombre}`;
+        document.getElementById("profileEmail").textContent = usuario.email;
+
+    } catch (error) {
+        console.error("Error al obtener perfil:", error);
+    }
+}
+
+async function cargarDatosCliente() {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        console.error("No hay token disponible");
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:4000/api/usuarios/perfil", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("No se pudo obtener el perfil");
+        }
+
+        const usuario = await response.json();
+
+        // Llenar los campos del modal del cliente
+        document.getElementById("clienteNombre").value = usuario.nombre;
+        document.getElementById("clienteEmail").value = usuario.email;
+
+        // Guardar el ID temporalmente como atributo del botón
+        const saveButton = document.getElementById("clienteSaveChangesBtn");
+        saveButton.setAttribute("data-id", usuario.id);  // Almacena el ID del cliente
+
+    } catch (error) {
+        console.error("Error al obtener perfil:", error);
+    }
+}
+
+
+async function guardarCambiosCliente() {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        console.error("No hay token disponible");
+        return;
+    }
+
+    const id = document.getElementById("clienteSaveChangesBtn").getAttribute("data-id");
+    const nombre = document.getElementById("clienteNombre").value;
+    const email = document.getElementById("clienteEmail").value;
+
+    // Validación: asegúrate de que los campos no estén vacíos
+    if (!nombre || !email) {
+        alert('Por favor, complete todos los campos.');
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:4000/api/usuarios/usuarios/${id}`, {
+            method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${token}`,  // Enviar el token
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nombre,
+                email
+            })
+        });
+
+        if (response.ok) {
+            alert("Perfil actualizado exitosamente");
+
+            // Cerrar el modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('clienteModal'));
+            modal.hide();
+
+            // Recargar los datos del perfil
+            obtenerPerfil();
+
+        } else {
+            alert("Error al actualizar el perfil");
+        }
+    } catch (error) {
+        console.error("Error al guardar cambios:", error);
+        alert("Ocurrió un error al actualizar el perfil");
+    }
+}
+
+// Agregar el evento al botón después de definir las funciones
+document.getElementById("clienteSaveChangesBtn").addEventListener("click", guardarCambiosCliente);
 
 
 /********************************** Ordenes Clliente**************/
 
 
+/***************************************** MOSTRAR COTIZACIONES ***********************/
 async function mostrarCotizaciones() {
     const container = document.getElementById("contenidoTemptlate");
     container.innerHTML = "";
 
+    // 🔥 Obtener el token almacenado
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        console.error("No hay token disponible.");
+        alert("Error de autenticación. Debes iniciar sesión nuevamente.");
+        return;
+    }
+
     try {
-        const ordersResponse = await fetch('http://localhost:4000/api/orders/orders');
+        const ordersResponse = await fetch('http://localhost:4000/api/orders/orders/', {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,  // 🔥 Agregar token en la solicitud
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!ordersResponse.ok) {
+            const errorData = await ordersResponse.json();
+            throw new Error(errorData.msg || "Error al obtener las órdenes");
+        }
+
         const orders = await ordersResponse.json();
+
+        if (!Array.isArray(orders)) {
+            console.error("La respuesta no es un array:", orders);
+            alert("No hay cotizaciones disponibles.");
+            return;
+        }
 
         orders.forEach(order => {
             crearCardCliente(order, container);
         });
+
     } catch (error) {
         console.error("Error al obtener las cotizaciones:", error);
         alert("Hubo un error al obtener los datos.");
     }
 }
 
+/***************************************** CREAR CARD CLIENTE ***********************/
 function crearCardCliente(order, container) {
     const template = document.getElementById("CotizacionesTemplate");
     const clone = document.importNode(template.content, true);
@@ -125,24 +245,39 @@ function crearCardCliente(order, container) {
     clone.querySelector(".delivery-date").textContent = `Entrega: ${deliveryDate.toLocaleString()}`;
 
     clone.querySelector(".direction").textContent = `Dirección: ${order.direction}`;
-    clone.querySelector(".cardStatus").textContent = `Estado: ${order.status === 'en_proceso' ? 'En proceso' : 'Entregado'}`;
+    clone.querySelector(".cardStatus").textContent = `Estado: ${order.status}`;
 
     // Botones con ID único
     clone.querySelector(".edit-button-client").setAttribute("data-id", order.id_order);
 
-
     container.appendChild(clone);
 }
 
-// *********** Editar Orden en Cliente *************
+/***************************************** EDITAR ORDEN EN CLIENTE ***********************/
 let currentOrderIdClient = null;
 
 document.addEventListener('click', async (e) => {
     if (e.target.classList.contains('edit-button-client')) {
         currentOrderIdClient = e.target.getAttribute('data-id');
 
+        // 🔥 Obtener el token almacenado
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            console.error("No hay token disponible.");
+            alert("Error de autenticación. Debes iniciar sesión nuevamente.");
+            return;
+        }
+
         try {
-            const response = await fetch(`http://localhost:4000/api/orders/orders/${currentOrderIdClient}`);
+            const response = await fetch(`http://localhost:4000/api/orders/orders/${currentOrderIdClient}`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,  // 🔥 Agregar token aquí
+                    "Content-Type": "application/json"
+                }
+            });
+
             if (!response.ok) throw new Error("Orden no encontrada");
 
             const order = await response.json();
@@ -160,29 +295,48 @@ document.addEventListener('click', async (e) => {
     }
 });
 
-// ********** Guardar Cambios en Orden Cliente ************
+/***************************************** GUARDAR CAMBIOS EN ORDEN CLIENTE ***********************/
 document.getElementById("saveChangesButtonClient").addEventListener("click", async () => {
     if (!currentOrderIdClient) return;
 
+    // 🔥 Obtener el token almacenado
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        console.error("No hay token disponible.");
+        alert("Error de autenticación. Debes iniciar sesión nuevamente.");
+        return;
+    }
+
     try {
         // Obtener la orden actual antes de enviarla para no perder `id_client`
-        const response = await fetch(`http://localhost:4000/api/orders/orders/${currentOrderIdClient}`);
+        const response = await fetch(`http://localhost:4000/api/orders/orders/${currentOrderIdClient}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,  // 🔥 Token para obtener la orden actual
+                "Content-Type": "application/json"
+            }
+        });
+
         if (!response.ok) throw new Error("Orden no encontrada");
 
-        const existingOrder = await response.json(); // La orden actual con todos sus datos
+        const existingOrder = await response.json();
 
         const updatedOrder = {
             description: document.getElementById("editDescriptionClient").value.trim(),
             direction: document.getElementById("editDirectionClient").value.trim(),
             date_order: document.getElementById("editDeliveryDateClient").value,
-            id_client: existingOrder.id_client, // 🔹 Mantener el ID del cliente
-            status: existingOrder.status // 🔹 También asegurarnos de no cambiar el estado
+            id_client: existingOrder.id_client,  // 🔹 Mantener el ID del cliente
+            status: existingOrder.status         // 🔹 Mantener el estado
         };
 
         // Enviar la orden actualizada
         const updateResponse = await fetch(`http://localhost:4000/api/orders/orders/${currentOrderIdClient}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Authorization": `Bearer ${token}`,  // 🔥 Token en la actualización
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(updatedOrder)
         });
 
@@ -199,80 +353,97 @@ document.getElementById("saveChangesButtonClient").addEventListener("click", asy
 
 
 
-/*********************************** New Sale Client ************************** */
+
+/*********************************** CREAR NUEVA ORDEN CLIENTE ************************** */
+
 // Asegúrate de que la plantilla sea añadida al DOM antes de añadir el evento.
 function mostrarNewSale() {
     const container = document.getElementById("contenidoTemptlate");
-    container.innerHTML = "";  // Elimina cualquier contenido previo
+    container.innerHTML = "";  // Limpiar el contenido previo
 
     const template = document.getElementById("newSaleCliente");
     if (template) {
         const clone = document.importNode(template.content, true);
-        container.appendChild(clone); // Añadir la plantilla al contenedor
+        container.appendChild(clone);  // Añadir la plantilla al contenedor
 
-        // Aquí asignamos automáticamente el ID del usuario logueado
-        const idUser = obtenerIdUsuarioLogueado();  // Función que debes implementar para obtener el ID del cliente
-        document.getElementById("id_user").value = idUser;
+        // Asignar automáticamente el ID del usuario logueado desde el token
+        const idUser = obtenerIdUsuarioDesdeToken();
+        console.log("ID del usuario logueado:", idUser);
 
-        // Ahora el botón existe, podemos añadir el eventListener
-        const submitButton = document.getElementById("submitButton");
+        const idUserInput = container.querySelector("#id_user");
+        if (idUserInput) {
+            idUserInput.value = idUser;  // Asignar el ID al input oculto
+        }
+
+        // Agregar evento al botón
+        const submitButton = container.querySelector("#submitButton");
+
         if (submitButton) {
-            submitButton.addEventListener("click", async (event) => {
-                event.preventDefault();
+            submitButton.addEventListener("click", async () => {
+                console.log("Botón clickeado");
 
-                const id_user = document.getElementById("id_user").value;
-                const date_order = document.getElementById("date_order").value;
-                const direction = document.getElementById("direction").value;
-                const description = document.getElementById("description").value;
+                // Obtener valores del formulario
+                const dateOrder = container.querySelector("#date_order").value;
+                const direction = container.querySelector("#direction").value;
+                const description = container.querySelector("#description").value;
 
-                if (parseInt(id_user) < 1) {
-                    alert("El ID de usuario debe ser un número positivo.");
+                if (!dateOrder || !direction || !description) {
+                    alert("Por favor, completa todos los campos.");
                     return;
                 }
 
-                const status = "en_proceso";
-
-                const orderData = {
-                    id_user,
-                    status,
-                    date_order,
-                    direction,
-                    description
+                // Crear objeto de la orden
+                const nuevaOrden = {
+                    id_user: idUser,
+                    date_order: dateOrder,      // Ahora incluye fecha y hora
+                    direction: direction,
+                    description: description
                 };
 
+                console.log("Orden a enviar:", nuevaOrden);
+
                 try {
-                    const response = await fetch('http://localhost:4000/api/orders/orders/', {
-                        method: 'POST',
+                    const token = localStorage.getItem("token");
+
+                    const response = await fetch("http://localhost:4000/api/orders/orders/", {
+                        method: "POST",
                         headers: {
-                            'Content-Type': 'application/json',
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
                         },
-                        body: JSON.stringify(orderData),
+                        body: JSON.stringify(nuevaOrden)
                     });
 
-                    const result = await response.json();
+                    const data = await response.json();
 
                     if (response.ok) {
-                        alert('¡Pedido creado correctamente!');
-                        document.getElementById("orderForm").reset();
+                        alert("Orden creada con éxito.");
+                        // Limpiar campos después de crear la orden
+                        container.querySelector("#date_order").value = "";
+                        container.querySelector("#direction").value = "";
+                        container.querySelector("#description").value = "";
                     } else {
-                        alert('Error al crear el pedido: ' + result.msg);
+                        alert(`Error: ${data.message}`);
                     }
                 } catch (error) {
-                    console.error("Error al enviar el formulario:", error);
-                    alert("Hubo un error al enviar los datos. Intenta nuevamente.");
+                    console.error("Error al crear la orden:", error);
+                    alert("Error al crear la orden.");
                 }
             });
+        } else {
+            console.error("No se encontró el botón para enviar la orden.");
         }
     }
 }
 
-// Función para obtener el ID del usuario logueado (esto depende de cómo lo manejes en tu sistema)
-function obtenerIdUsuarioLogueado() {
-    // Esto debe obtener el ID del usuario que está logueado, por ejemplo:
-    // 1. Si está en el localStorage
-    // 2. Si está en un token JWT
-    // 3. Si está en una cookie
-    // Para este ejemplo, asumimos que lo tienes guardado en el localStorage:
-    const user = JSON.parse(localStorage.getItem("usuario_logueado"));
-    return user ? user.id : null; // Asegúrate de que devuelvas el id correcto
+function obtenerIdUsuarioDesdeToken() {
+    const token = localStorage.getItem("token");
+    if (!token) return null;
+
+    const tokenParts = token.split('.');
+    if (tokenParts.length !== 3) return null;
+
+    const payload = JSON.parse(atob(tokenParts[1]));  // Decodifica el payload
+    return payload.id;  // Retorna el ID del usuario
 }
+

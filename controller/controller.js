@@ -147,6 +147,81 @@ document.getElementById("modalActionBtn").addEventListener("click", async () => 
 
 
 
+const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const modalActionBtn = document.getElementById('modalActionBtn');
+    const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+
+    if (forgotPasswordLink) {
+        // Cuando se hace clic en "Olvidaste tu contraseña"
+        forgotPasswordLink.addEventListener('click', function() {
+            // Cambiar el título y el contenido del cuerpo del modal
+            modalTitle.textContent = 'Recuperar contraseña';
+            modalBody.innerHTML = `
+                <div class="mb-3">
+                    <label for="resetEmail" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="resetEmail" placeholder="name@example.com">
+                </div>
+            `;
+            modalActionBtn.textContent = 'Recuperar contraseña';
+
+            // Ocultar el enlace "Olvidaste tu contraseña"
+            forgotPasswordLink.style.display = 'none';
+
+            // Cambiar la acción del botón para enviar la solicitud de recuperación de contraseña
+            modalActionBtn.onclick = async function() {
+                const email = document.getElementById('resetEmail').value;
+                try {
+                    const response = await fetch("http://localhost:4000/api/usuarios/recuperar-password", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email })
+                    });
+
+                    const data = await response.json();
+                    if (!response.ok) {
+                        alert(data.message);
+                        return;
+                    }
+
+                    alert("Te hemos enviado un correo con instrucciones para recuperar tu contraseña.");
+                    $('#exampleModal').modal('hide'); // Cerrar el modal al enviar la solicitud
+                } catch (error) {
+                    console.error("Error al recuperar la contraseña", error);
+                }
+            };
+        });
+    }
+
+    // Restaurar el contenido original del modal al cerrarlo
+    const modalElement = document.getElementById('exampleModal');
+    modalElement.addEventListener('hidden.bs.modal', function () {
+        // Restaurar el título y el cuerpo original
+        modalTitle.textContent = 'Inicia sesión';
+        modalBody.innerHTML = `
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1"
+                    placeholder="name@example.com">
+            </div>
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="inputPassword">
+                </div>
+            </div>
+        `;
+        modalActionBtn.textContent = 'Iniciar sesión';
+    
+        // Mostrar nuevamente el enlace de "Olvidaste tu contraseña"
+        forgotPasswordLink.style.display = 'inline-block';
+    });
+    
+
+
+
+
 // Escuchar el clic del botón "Registrar" para enviar la solicitud
 document.getElementById('modalActionBtn').addEventListener('click', async function () {
     // Obtener los valores de los inputs

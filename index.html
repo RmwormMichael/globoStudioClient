@@ -63,7 +63,7 @@
 
 
         <section class="galeria"> <!-- Mostrar Imagenes -->
-            <h1>Productos Destacados</h1>
+            <h1 class="tittleIndex">Productos Destacados</h1>
             <div id="carouselExampleIndicators" class="carousel slide">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class=""
@@ -130,7 +130,7 @@
 
 
         <div class="services" id="ourServices"> <!--Services-->
-            <h1>Nuestros Servicios</h1>
+            <h1 class="tittleIndex">Nuestros Servicios</h1>
 
             <div class="servicesWrapper">
                 <div class="service">
@@ -157,7 +157,7 @@
         </div>
 
         <section class="section2" id="about"> <!--About-->
-
+            <div class="contentSectionDos">
             <h1 class="tittle">ABOUT</h1>
             <div class="info">
                 <p class="parrafo">ALSO, WE OFFER…
@@ -173,16 +173,14 @@
                     Full Customization: We are committed to working closely with our clients to understand their
                 </p>
             </div>
+        </div>
         </section>
 
 
         <!------------------ Modal Login -------------->
-
-        <!-- Botones de Login y Register -->
-
-        <!-- Modal -->
         <form>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -190,9 +188,11 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body" id="modalBody">
+                            <!-- Formulario de Login por defecto -->
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                                <input type="email" class="form-control" id="exampleFormControlInput1"
+                                    placeholder="name@example.com">
                             </div>
                             <div class="mb-3 row">
                                 <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
@@ -200,6 +200,9 @@
                                     <input type="password" class="form-control" id="inputPassword">
                                 </div>
                             </div>
+                        </div>
+                        <div class="mb-3">
+                            <a class="olvideContraseña" href="#" id="forgotPasswordLink">¿Olvidaste tu contraseña?</a>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -210,10 +213,6 @@
             </div>
         </form>
         
-
-
-        <!-------------- Recuperar contraseña ----------->
-
         <template class="recovery" id="recoveryTemp">
             <div class="logIn">
                 <div class="cajaQuote">
@@ -221,7 +220,7 @@
                     <input type="text" placeholder="Email">
                 </div>
                 <div class="codeVeri">
-                    <h4">SEND NEW PASSWORD</h4>
+                    <h4>SEND NEW PASSWORD</h4>
                 </div>
                 <div class="cajaQuote">
                     <h4>YOUR PASSWORD:</h4>
@@ -234,12 +233,12 @@
         </template>
 
         <footer><!------------------ footer -------------->
-            <h5 class="contact">Contáctanos</h5>
+            
             <div class="footer">
-                <div class="footerUno">
+                <h5>Contáctanos</h5>
+                <div class="footerUno">                    
                     <p class="dateFooter">Celular: (+57) 314 211 99 46</p>
                     <p class="dateFooter">Bogotá, Colombia</p>
-                    <p class="dateFooter">Envios unicamente en Bogotá.</p>
                     <p class="dateFooter">Síguenos en nuestras redes:</p>
                 </div>
                 <div class="footerDos">
