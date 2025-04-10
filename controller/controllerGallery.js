@@ -1,20 +1,20 @@
 let vista = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-    vista = new Vista();
-    mostrarArcos();
+  vista = new Vista();
+  mostrarArcos();
 });
 
 /* Galeria */
 
 function mostrarArcos() {
-    vista.mostrarPlantilla("arcos", "mainCategory")
+  vista.mostrarPlantilla("arcos", "mainCategory");
 }
 
 function mostrarBouquets() {
-    vista.mostrarPlantilla("bouquets", "mainCategory")
+  vista.mostrarPlantilla("bouquets", "mainCategory");
 }
 
 function mostrarDiseños() {
-    vista.mostrarPlantilla("diseños", "mainCategory")
+  vista.mostrarPlantilla("diseños", "mainCategory");
 }
