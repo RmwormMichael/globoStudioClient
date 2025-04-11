@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<!--------------------------    BARRA SUPERIOR Y MENU --------------->
+  <!--------------------------    BARRA SUPERIOR Y MENU --------------->
   <div class="contenidoLogin">
     <header>
       <nav class="navAdmin">
@@ -20,13 +20,13 @@
           Globo Studio
         </h1>
         <ul class="navLinks">
-          <li class="liLogin" id="b-sales" onclick="mostrarSales()"> <button type="button"
+          <li class="liLogin" id="b-sales"> <button type="button"
               class="btn btn-outline-dark">Ordenes</button></li>
-          <li class="liLogin" id="b-new-sale" onclick="mostrarNewSale()"><button type="button"
+              <li class="liLogin" id="b-new-sale"><button type="button"
               class="btn btn-outline-dark">Nueva Orden</button></li>
-          <li class="liLogin" id="b-Dashboard" onclick="mostrarDashboard()"><button type="button"
+              <li class="liLogin" id="b-dashboard"><button type="button"
               class="btn btn-outline-dark">Dashboard</button></li>
-          <li class="liLogin" id="b-" onclick="mostrarUsers()"><button type="button"
+              <li class="liLogin" id="b-users"><button type="button"
               class="btn btn-outline-dark">Users</button></li>
           <li><a href="./index.html"> <img class="imgSvg" src="/view/img/box.svg" alt=""></a></li>
 
@@ -41,14 +41,11 @@
 
 
 
-<!----------------- TEMPLATE PARA INSERTAR CONTENIDO ADMIN ------------->
+    <!----------------- TEMPLATE PARA INSERTAR CONTENIDO ADMIN ------------->
     <main class="container" id="mainAdmin">
 
     </main>
   </div>
-
-
-
 
 
 
@@ -75,7 +72,6 @@
       </div>
     </div>
   </template>
-
 
 
 
@@ -123,12 +119,6 @@
     </div>
   </div>
 
-
-
-
-
-
-
   <!--------------------------------- NEW SALE ------------------------------- -->
 
   <template id="newSale">
@@ -155,69 +145,39 @@
     </div>
   </template>
 
-
-
-
-
-
-
-  <!--------------------------------- DASHBOARD ------------------------------- -->
-  <template id="dashboard">
-    <div class="dashboardContainer">
-      <h2 class="titDash">Dashboard</h2>
-      <div class="dashboardSummary">
-        <div class="summaryItem">
-          <h3>Total Sales</h3>
-          <p>Number of sales made: <span id="totalSales">100</span></p>
-        </div>
-        <div class="summaryItem">
-          <h3>Pending Sales</h3>
-          <p>Number of pending sales: <span id="pendingSales">5</span></p>
-        </div>
-        <div class="summaryItem">
-          <h3>Completed Sales</h3>
-          <p>Number of completed sales: <span id="completedSales">90</span></p>
-        </div>
-      </div>
-    </div>
-  </template>
-
-
-</html>
-
-<!---------------------------------  ------------------------------- -->
+<!--------------------------------- TABLA USUARIOS ------------------------------- -->
 <template id="users">
   <div class="usersContainer">
-    <h2 class="tittleUsers">Users</h2>
-    <nav class="navbar bg-body-tertiary">
-      <div class="container-fluid">
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+
+    <template id="userCard">
+      <div class="card">
+        <div class="card-body">
+          <div class="cardTittle">
+            <h5 class="user-id"></h5> <!-- ID del usuario -->
+            <h5 class="user-name"></h5> <!-- Nombre del usuario -->
+          </div>
+          <h3>Email:</h3>
+          <p class="user-email"></p> <!-- Email del usuario -->
+        </div>
+        <div class="card-body">
+          <button type="button" class="btn btn-outline-secondary edit-buttonUser" data-bs-toggle="modal"
+            data-bs-target="#exampleModalCenter">
+            Editar
+          </button>
+          <button type="button" class="btn btn-outline-danger delete-buttonUser">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill"
+              viewBox="0 0 16 16">
+              <path
+                d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5">
+              </path>
+            </svg>
+          </button>
+        </div>
       </div>
-    </nav>
-    <table class="usersTable" id="usuariosTable">
-      <thead class="trUsers">
-        <tr class="trTittle">
-          <th>Id_User</th>
-          <th>Nombre</th>
-          <th>Email</th>
-          <th>Acciones</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-
-      </tbody>
-    </table>
-
-
-
+    </template>
 
 
     <!-- -------------------Modal para editar cualquier usuario--------------- -->
-
 
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
       aria-hidden="true">
@@ -253,9 +213,12 @@
   </div>
 </template>
 
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/view/js/vista.js"></script>
-<script src="/controller/menuController.js"></script>
-<script src="/controller/adminController.js"></script>
+<script type="module" src="/view/js/vista.js"></script>
+<script type="module" src="/controller/adminController.js"></script>
+<script type="module" src="/controller/menuController.js"></script>
+
+
 </body>
+
+</html>
