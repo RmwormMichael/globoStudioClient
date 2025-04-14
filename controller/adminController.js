@@ -1,4 +1,8 @@
 import newSaleView from "../view/js/newSaleView.js";
+<<<<<<< HEAD
+=======
+import Vista from "../view/js/vista.js";
+>>>>>>> 54f1cd0 (MVC todo el fronend)
 
 let vista = null;
 
