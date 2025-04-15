@@ -57,7 +57,7 @@ header {
 
 
 .contenidoLogin {
-    background-image: url(/view/img/fondoUno.jpg);
+    background-image: url(../img/fondoUno.jpg);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -162,7 +162,7 @@ nav {
 /************************************* section gallery ****************************/
 
 .section {
-    background-image: url(/view/img/fondoUno.jpg);
+    background-image: url(../img/fondoUno.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
@@ -306,7 +306,7 @@ nav {
 /**************************************** section Dos ****************************/
 
 .section2 {
-    background-image: url(/view/img/atres.jpg);
+    background-image: url(../img/atres.jpg);
     background-size: cover;
     background-attachment: fixed;
     margin-top: 2rem;
@@ -654,7 +654,7 @@ input {
 /************************************ GALLERY ****************************************/
 
 .sectionGallery {
-    background-image: url(/view/img/fondoUno.jpg);
+    background-image: url(../img/fondoUno.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
@@ -744,7 +744,7 @@ body {
     width: 100%;
     height: 100vh;
     /* Resta la altura de la barra superior */
-    background-image: url('/view/img/fondoUno.jpg');
+    background-image: url('../img/fondoUno.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1150,7 +1150,7 @@ header {
     }
 
     .section2 {
-        background-image: url(/view/img/atresResized.jpg);
+        background-image: url(../img/atresResized.jpg);
         background-size: cover;
         margin-top: 2rem;
         padding: 3rem 2rem;
