@@ -1,20 +1,17 @@
-let vista = null;
+import GalleryView from '../view/js/galleryView.js';
 
-document.addEventListener("DOMContentLoaded", () => {
-    vista = new Vista();
-    mostrarArcos();
-});
+const navCategory = document.getElementById('navCategory');
 
-/* Galeria */
+export function initGallery() {
+    navCategory.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-category]');
+        if (!btn) return;
+        const categoria = btn.getAttribute('data-category');
+        GalleryView.mostrarCategoria(categoria);
+    });
 
-function mostrarArcos() {
-    vista.mostrarPlantilla("arcos", "mainCategory")
+    // Mostrar 'arcos' por defecto al iniciar
+    GalleryView.mostrarCategoria('arcos');
 }
 
-function mostrarBouquets() {
-    vista.mostrarPlantilla("bouquets", "mainCategory")
-}
-
-function mostrarDiseños() {
-    vista.mostrarPlantilla("diseños", "mainCategory")
-}
+initGallery();
