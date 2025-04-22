@@ -22,12 +22,34 @@ export const registrarUsuario = async (nombre, email, password) => {
 };
 
 export const recuperarPassword = async (email) => {
-  const response = await fetch(API_URL + "recuperar-password", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email }),
-  });
-  return await response.json();
+  try {
+    const response = await fetch(API_URL + "olvide-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    
+    const data = await response.json();
+    
+    if (!response.ok) {
+      return {
+        ok: false,
+        message: data.msg || "Error al solicitar recuperación"
+      };
+    }
+    
+    return {
+      ok: true,
+      message: data.msg
+    };
+    
+  } catch (error) {
+    console.error("Error:", error);
+    return {
+      ok: false,
+      message: "Error de conexión"
+    };
+  }
 };
 
 export const validarCorreo = (correo) => {

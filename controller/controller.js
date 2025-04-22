@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert(
           "Te hemos enviado un correo con instrucciones para recuperar tu contraseña."
         );
-        $("#exampleModal").modal("hide");
+        ("#exampleModal").modal("hide");
       } catch (error) {
         console.error("Error recuperación", error);
       }
