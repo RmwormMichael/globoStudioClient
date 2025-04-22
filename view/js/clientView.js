@@ -34,7 +34,8 @@ export default class ClientView {
 
   // clientView.js
 export function renderizarPerfil(usuario) {
-    document.getElementById("profileWelcome").textContent = `Profile: ${usuario.nombre}`;
+  document.getElementById("profileWelcome").textContent = usuario.nombre;
+
     document.getElementById("profileEmail").textContent = usuario.email;
   }
   

@@ -169,6 +169,26 @@ nav {
     /* Cambia el color del texto al pasar el ratón */
 }
 
+.modal.show .modal-dialog.login {
+    transform: none;
+    margin-top: 20vh;
+}
+
+.nameClient {
+    gap: 5vh;
+}
+
+.list-group.client {
+    border-bottom-width: 0;
+    padding: 2vh;
+}
+
+.btn-outline-primary.editarCliente {
+    background-color: #000000;
+    color: white;
+    border-color: #000000;
+}
+
 
 
 /************************************* section gallery ****************************/
@@ -325,20 +345,20 @@ nav {
     background-size: cover;
     background-attachment: fixed;
     margin-top: 2rem;
-    padding: 3rem 2rem;
-    height: 100vh;
-}
-
-.contentSectionDos {
-    display: flex;
-    flex-direction: column;
-    gap: 5vh;
-    margin: 5vh 4.5vh;
+    padding: 2rem 2rem;
+    height: 110vh;
 }
 
 .carousel-item {
     position: relative;
     text-align: center;
+}
+
+.globoTittle.about {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%; /* Para que sea responsive */
+    height: auto;
 }
 
 
@@ -594,6 +614,17 @@ input {
     border-color: #dc3545;
 }
 
+.btn-warning {
+    background-color: #000000;
+    color: white;
+    border-color: #000000;
+}
+
+.btn-warning:hover {
+    background-color: var(--primario);
+    border-color: var(--primario);
+}
+
 
 /************************************** Footer *********************************/
 .footer {
@@ -631,7 +662,6 @@ input {
 
 
 .container {
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1172,7 +1202,7 @@ header {
         background-size: cover;
         margin-top: 2rem;
         padding: 3rem 2rem;
-        height: 100vh;
+        height: 110vh;
     }
 
 
