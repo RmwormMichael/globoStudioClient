@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 export async function mostrarUsuarios() {
   try {
     const usuarios = await userModel.obtenerUsuarios();
-    listaUsuarios = usuarios; // guardamos la lista original
+    listaUsuarios = usuarios; // Guardamos la lista original
 
     userView.mostrarUsuarios(usuarios, {
       onEdit: (usuario) => {
@@ -55,15 +55,32 @@ export async function mostrarUsuarios() {
       onDelete: async (id) => {
         if (confirm("¿Estás seguro de eliminar este usuario?")) {
           await userModel.eliminarUsuario(id);
-          mostrarUsuarios(); // recarga
+          mostrarUsuarios(); // Recargar la lista
         }
       }
     });
 
+    // Configuramos el buscador con filtrado avanzado
     userView.configurarBuscador((texto) => {
+      if (!texto) {
+        userView.mostrarUsuarios(listaUsuarios, {
+          onEdit: (usuario) => userView.llenarModal(usuario, guardarCambios),
+          onDelete: async (id) => {
+            if (confirm("¿Estás seguro de eliminar este usuario?")) {
+              await userModel.eliminarUsuario(id);
+              mostrarUsuarios();
+            }
+          }
+        });
+        return;
+      }
+
       const filtrados = listaUsuarios.filter(u =>
-        u.nombre.toLowerCase().includes(texto)
+        u.id_user.toString().includes(texto) || // Buscar por ID
+        u.nombre.toLowerCase().includes(texto) || // Buscar por nombre
+        (u.email && u.email.toLowerCase().includes(texto)) // Buscar por email
       );
+
       userView.mostrarUsuarios(filtrados, {
         onEdit: (usuario) => userView.llenarModal(usuario, guardarCambios),
         onDelete: async (id) => {
@@ -77,27 +94,30 @@ export async function mostrarUsuarios() {
 
   } catch (error) {
     console.error("Error al mostrar usuarios:", error);
+    alert("Error al cargar los usuarios");
   }
 }
 
 async function guardarCambios(id) {
   const nombre = document.getElementById("nombre").value;
   const email = document.getElementById("email").value;
+  const rol = document.getElementById("rol").value;
 
-  if (!nombre || !email) {
+  if (!nombre || !email || !rol) {
     alert("Por favor, complete todos los campos.");
     return;
   }
 
   try {
-    const response = await userModel.editarUsuario(id, { nombre, email });
+    const response = await userModel.editarUsuario(id, { nombre, email, rol });
 
     if (response.ok) {
       alert("Usuario actualizado exitosamente");
       userView.cerrarModal();
-      mostrarUsuarios();
+      mostrarUsuarios(); // Recargar la lista
     } else {
-      alert("Error al actualizar el usuario");
+      const errorData = await response.json();
+      alert(errorData.message || "Error al actualizar el usuario");
     }
   } catch (error) {
     console.error("Error al guardar cambios:", error);
@@ -122,6 +142,12 @@ export function mostrarNewSale() {
 import orderModel from "../model/orderModel.js";
 import orderView from "../view/js/orderView.js";
 
+// Variables globales
+let currentOrderId = null;
+let currentUserId = null;
+let allOrders = []; // Almacenar todas las órdenes
+let allUsers = [];   // Almacenar todos los usuarios
+
 export async function mostrarSales() {
   const container = document.getElementById("mainAdmin");
   if (!container) return;
@@ -140,25 +166,78 @@ export async function mostrarSales() {
   }
 
   try {
-    const [orders, users] = await Promise.all([
+    [allOrders, allUsers] = await Promise.all([
       orderModel.obtenerOrdenes(token),
       orderModel.obtenerUsuarios(token),
     ]);
 
-    const ordersContainer = container.querySelector(".usersContainer");
-    orders.forEach((order) => {
-      const user = users.find((u) => u.id_user === order.id_user);
-      orderView.crearCard(order, user, ordersContainer);
-    });
+    renderOrders(allOrders, allUsers, container);
+    setupSearch(container);
+    setupEventListeners();
   } catch (error) {
     console.error("Error al obtener las órdenes o los usuarios:", error);
     alert("Hubo un error al obtener los datos.");
   }
 }
 
-// Variables globales
-let currentOrderId = null;
-let currentUserId = null;
+function renderOrders(orders, users, container) {
+  const ordersContainer = container.querySelector(".usersContainer");
+  // Limpiar solo las tarjetas, no todo el contenedor (para mantener el buscador)
+  const cards = ordersContainer.querySelectorAll(".card");
+  cards.forEach(card => card.remove());
+  
+  orders.forEach((order) => {
+    const user = users.find((u) => u.id_user === order.id_user);
+    orderView.crearCard(order, user, ordersContainer);
+  });
+}
+
+function setupSearch(container) {
+  const searchInput = container.querySelector("#searchInput");
+  const searchButton = container.querySelector("#searchButton");
+  
+  const handleSearch = () => {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    
+    if (!searchTerm) {
+      renderOrders(allOrders, allUsers, container);
+      return;
+    }
+    
+    // Filtrar órdenes
+    const filteredOrders = allOrders.filter(order => {
+      // Buscar por ID de orden
+      if (order.id_order.toString().includes(searchTerm)) {
+        return true;
+      }
+      
+      // Buscar por nombre de usuario
+      const user = allUsers.find(u => u.id_user === order.id_user);
+      if (user && user.nombre.toLowerCase().includes(searchTerm)) {
+        return true;
+      }
+      
+      // Buscar por descripción (opcional)
+      if (order.description.toLowerCase().includes(searchTerm)) {
+        return true;
+      }
+      
+      return false;
+    });
+    
+    renderOrders(filteredOrders, allUsers, container);
+  };
+  
+  searchButton.addEventListener("click", handleSearch);
+  searchInput.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  });
+}
+
+
+ // --------------------------------------    EDITAR ORDENES -------------------
 
 function setupEventListeners() {
   document.addEventListener("click", async (e) => {

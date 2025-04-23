@@ -52,8 +52,8 @@
   <template id="mySalesTemplate">
     <div class="usersContainer">
       <div class="input-group mb-3">
-        <button class="btn btn-outline-secondary" type="button" aria-expanded="false">Buscar</button>
-        <input type="text" class="form-control" placeholder="Buscar orden por ID o descripción">
+        <button class="btn btn-outline-secondary" type="button" id="searchButton">Buscar</button>
+        <input type="text" class="form-control" id="searchInput" placeholder="Buscar orden por ID o nombre de usuario">
       </div>
   
       <template id="MySales">
@@ -159,8 +159,8 @@
   <div class="usersContainer">
 
     <div class="input-group mb-3">
-      <button class="btn btn-outline-secondary" type="button" aria-expanded="false">Buscar</button>
-      <input type="text" class="form-control" placeholder="Buscar usuario por nombre">
+      <button class="btn btn-outline-secondary" type="button" id="userSearchButton">Buscar</button>
+      <input type="text" class="form-control" id="userSearchInput" placeholder="Buscar usuario por ID, nombre o email">
     </div>
     
 
