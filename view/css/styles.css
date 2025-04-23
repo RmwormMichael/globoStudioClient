@@ -452,7 +452,7 @@ input {
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
-    margin: 2rem auto;
+    margin: 7rem auto;
     overflow: hidden;
     border: 1px solid #e0e0e0;
     background-color: #ffffffc7;
@@ -498,12 +498,16 @@ input {
     font-size: 11px;
 }
 
+.contenedorSales {
+    margin-top: 20vh;
+}
+
 /* ***************************NEW SALE************************/
 
 .card {
     margin-top: 20px;
     margin-bottom: 34px;
-    width: 25rem;
+    width: 33rem;
 }
 
 
@@ -512,6 +516,7 @@ input {
     gap: 25px;
     border-bottom: solid;
     margin-bottom: 2vh;
+    justify-content: space-between;
 }
 
 .usersCardsContainer {

@@ -59,7 +59,17 @@ const orderModel = {
       });
       if (!response.ok) throw new Error("Error al eliminar la orden.");
     },
-  };
+
+    async buscarOrdenes(termino, token) {
+      const response = await fetch(`http://localhost:4000/api/orders/buscar?termino=${encodeURIComponent(termino)}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!response.ok) throw new Error("Error al buscar órdenes.");
+      return await response.json();
+    },
+};
+
+  
   
   export default orderModel;
   

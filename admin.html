@@ -49,74 +49,84 @@
 
 
   <!--------------------------------- MY SALES ------------------------------- -->
-  <template id="MySales">
-    <div class="card">
-      <div class="card-body">
-        <div class="cardTittle">
-          <h5 class="order-id"></h5> <!-- Aquí se colocará el ID de la orden -->
-          <h5 class="user-name"></h5> <!-- Aquí se colocará el nombre del usuario -->
-        </div>
-        <h3>Descripción:</h3>
-        <p class="cardDescription"></p> <!-- Aquí se colocará la descripción de la orden -->
+  <template id="mySalesTemplate">
+    <div class="usersContainer">
+      <div class="input-group mb-3">
+        <button class="btn btn-outline-secondary" type="button" aria-expanded="false">Buscar</button>
+        <input type="text" class="form-control" placeholder="Buscar orden por ID o descripción">
       </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item direction"></li> <!-- Dirección de la orden -->
-        <li class="list-group-item creation-date"></li> <!-- Fecha de creación -->
-        <li class="list-group-item delivery-date"></li> <!-- Fecha de entrega -->
-        <li class="list-group-item cardStatus"></li> <!-- Estado de la orden -->
-      </ul>
-      <div class="card-body">
-        <button class="btn btn-warning edit-button" data-id="">Editar</button>
-        <button type="button" class="btn btn-outline-danger delete-button" data-id="">Eliminar</button>
+  
+      <template id="MySales">
+        <div class="card">
+          <div class="card-body">
+            <div class="cardTittle">
+              <h5 class="order-id"></h5>
+              <h5 class="user-name"></h5>
+            </div>
+            <h3>Descripción:</h3>
+            <p class="cardDescription"></p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item direction"></li>
+            <li class="list-group-item creation-date"></li>
+            <li class="list-group-item delivery-date"></li>
+            <li class="list-group-item cardStatus"></li>
+          </ul>
+          <div class="card-body">
+            <button class="btn btn-outline-secondary edit-button" data-id="" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
+            <button type="button" class="btn btn-outline-danger delete-button" data-id="">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </template>
+  
+      <!-- Modal al final del body -->
+      <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editModalLabel">Editar Orden</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form class="row g-3 needs-validation" novalidate>
+                <!-- Campo de Descripción -->
+                <div class="col-md-12">
+                  <label for="editDescription" class="form-label">Descripción</label>
+                  <textarea class="form-control" id="editDescription" required></textarea>
+                </div>
+                <!-- Campo de Dirección -->
+                <div class="col-md-12">
+                  <label for="editDirection" class="form-label">Dirección</label>
+                  <input type="text" class="form-control" id="editDirection" required>
+                </div>
+                <!-- Campo de Fecha de Entrega -->
+                <div class="col-md-12">
+                  <label for="editDeliveryDate" class="form-label">Fecha de Entrega</label>
+                  <input type="datetime-local" class="form-control" id="editDeliveryDate" required>
+                </div>
+                <!-- Campo de Estado -->
+                <div class="col-md-12">
+                  <label for="editStatus" class="form-label">Estado</label>
+                  <select class="form-select" id="editStatus" required>
+                    <option value="en_proceso">En proceso</option>
+                    <option value="entregado">Entregado</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" id="saveChangesButton">Guardar Cambios</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </template>
-
-
-
-  <!-- Modal al final del body -->
-  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Editar Orden</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form class="row g-3 needs-validation" novalidate>
-            <!-- Campo de Descripción -->
-            <div class="col-md-12">
-              <label for="editDescription" class="form-label">Descripción</label>
-              <textarea class="form-control" id="editDescription" required></textarea>
-            </div>
-            <!-- Campo de Dirección -->
-            <div class="col-md-12">
-              <label for="editDirection" class="form-label">Dirección</label>
-              <input type="text" class="form-control" id="editDirection" required>
-            </div>
-            <!-- Campo de Fecha de Entrega -->
-            <div class="col-md-12">
-              <label for="editDeliveryDate" class="form-label">Fecha de Entrega</label>
-              <input type="datetime-local" class="form-control" id="editDeliveryDate" required>
-            </div>
-            <!-- Campo de Estado -->
-            <div class="col-md-12">
-              <label for="editStatus" class="form-label">Estado</label>
-              <select class="form-select" id="editStatus" required>
-                <option value="en_proceso">En proceso</option>
-                <option value="entregado">Entregado</option>
-              </select>
-            </div>
-
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" id="saveChangesButton">Guardar Cambios</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!--------------------------------- NEW SALE ------------------------------- -->
 
@@ -148,6 +158,12 @@
 <template id="users">
   <div class="usersContainer">
 
+    <div class="input-group mb-3">
+      <button class="btn btn-outline-secondary" type="button" aria-expanded="false">Buscar</button>
+      <input type="text" class="form-control" placeholder="Buscar usuario por nombre">
+    </div>
+    
+
     <template id="userCard">
       <div class="card">
         <div class="card-body">
@@ -155,9 +171,11 @@
             <h5 class="user-id"></h5> <!-- ID del usuario -->
             <h5 class="user-name"></h5> <!-- Nombre del usuario -->
           </div>
+          <div class="cardTittle">
           <h3>Email:</h3>
           <p class="user-email"></p> <!-- Email del usuario -->
         </div>
+      </div>
         <div class="card-body">
           <button type="button" class="btn btn-outline-secondary edit-buttonUser" data-bs-toggle="modal"
             data-bs-target="#exampleModalCenter">

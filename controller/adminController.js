@@ -1,6 +1,5 @@
 import newSaleView from "../view/js/newSaleView.js";
 import Vista from "../view/js/vista.js";
-
 let vista = null;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const isAdmin = document.getElementById("mainAdmin");
   if (isAdmin) {
     mostrarSales();
+    setupEventListeners();
   }
 });
 
@@ -30,6 +30,8 @@ export function mostrarUsers() {
 import userModel from "../model/userModel.js";
 import userView from "../view/js/userView.js";
 
+let listaUsuarios = [];
+
 document.addEventListener("DOMContentLoaded", () => {
   const usersLink = document.querySelector("#usersLink");
 
@@ -44,26 +46,37 @@ document.addEventListener("DOMContentLoaded", () => {
 export async function mostrarUsuarios() {
   try {
     const usuarios = await userModel.obtenerUsuarios();
+    listaUsuarios = usuarios; // guardamos la lista original
 
     userView.mostrarUsuarios(usuarios, {
       onEdit: (usuario) => {
         userView.llenarModal(usuario, guardarCambios);
       },
       onDelete: async (id) => {
-        if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
-          const response = await userModel.eliminarUsuario(id);
-          if (response.ok) {
-            alert("Usuario eliminado correctamente");
+        if (confirm("¿Estás seguro de eliminar este usuario?")) {
+          await userModel.eliminarUsuario(id);
+          mostrarUsuarios(); // recarga
+        }
+      }
+    });
+
+    userView.configurarBuscador((texto) => {
+      const filtrados = listaUsuarios.filter(u =>
+        u.nombre.toLowerCase().includes(texto)
+      );
+      userView.mostrarUsuarios(filtrados, {
+        onEdit: (usuario) => userView.llenarModal(usuario, guardarCambios),
+        onDelete: async (id) => {
+          if (confirm("¿Estás seguro de eliminar este usuario?")) {
+            await userModel.eliminarUsuario(id);
             mostrarUsuarios();
-          } else {
-            alert("Error al eliminar el usuario");
           }
         }
-      },
+      });
     });
 
   } catch (error) {
-    console.error("Error al obtener los usuarios:", error);
+    console.error("Error al mostrar usuarios:", error);
   }
 }
 
@@ -111,8 +124,13 @@ import orderView from "../view/js/orderView.js";
 
 export async function mostrarSales() {
   const container = document.getElementById("mainAdmin");
-  if (!container) return; // No ejecutar si no estás en admin.html
+  if (!container) return;
+  
+  // Cargar el template
+  const template = document.getElementById("mySalesTemplate");
+  const clone = document.importNode(template.content, true);
   container.innerHTML = "";
+  container.appendChild(clone);
 
   const token = localStorage.getItem("token");
   if (!token) {
@@ -127,9 +145,10 @@ export async function mostrarSales() {
       orderModel.obtenerUsuarios(token),
     ]);
 
+    const ordersContainer = container.querySelector(".usersContainer");
     orders.forEach((order) => {
       const user = users.find((u) => u.id_user === order.id_user);
-      orderView.crearCard(order, user, container);
+      orderView.crearCard(order, user, ordersContainer);
     });
   } catch (error) {
     console.error("Error al obtener las órdenes o los usuarios:", error);
@@ -141,62 +160,63 @@ export async function mostrarSales() {
 let currentOrderId = null;
 let currentUserId = null;
 
-document.addEventListener("click", async (e) => {
-  if (e.target.classList.contains("edit-button")) {
-    currentOrderId = e.target.getAttribute("data-id");
-    const token = localStorage.getItem("token");
-    if (!token) return alert("Inicia sesión.");
+function setupEventListeners() {
+  document.addEventListener("click", async (e) => {
+    if (e.target.classList.contains("edit-button")) {
+      currentOrderId = e.target.getAttribute("data-id");
+      const token = localStorage.getItem("token");
+      if (!token) return alert("Inicia sesión.");
 
-    try {
-      const order = await orderModel.obtenerOrdenPorId(currentOrderId, token);
-      currentUserId = order.id_user;
-      orderView.llenarFormularioEdicion(order);
-      new bootstrap.Modal(document.getElementById("editModal")).show();
-    } catch (error) {
-      console.error(error);
-      alert("No se pudo cargar la orden.");
-    }
-  }
-
-  if (e.target.classList.contains("delete-button")) {
-    const orderId = e.target.getAttribute("data-id");
-    const token = localStorage.getItem("token");
-    if (!token) return alert("Inicia sesión.");
-
-    if (confirm("¿Estás seguro de que deseas eliminar esta orden?")) {
       try {
-        await orderModel.eliminarOrden(orderId, token);
-        e.target.closest(".card").remove();
-        alert("Orden eliminada con éxito.");
+        const order = await orderModel.obtenerOrdenPorId(currentOrderId, token);
+        currentUserId = order.id_user;
+        orderView.llenarFormularioEdicion(order);
       } catch (error) {
         console.error(error);
-        alert("No se pudo eliminar la orden.");
+        alert("No se pudo cargar la orden.");
       }
     }
-  }
-});
 
-document.getElementById("saveChangesButton")?.addEventListener("click", async () => {
-  if (!currentOrderId) return alert("No se encontró la orden.");
+    if (e.target.classList.contains("delete-button")) {
+      const orderId = e.target.getAttribute("data-id");
+      const token = localStorage.getItem("token");
+      if (!token) return alert("Inicia sesión.");
 
-  const updatedOrder = {
-    description: document.getElementById("editDescription").value.trim(),
-    direction: document.getElementById("editDirection").value.trim(),
-    date_order: document.getElementById("editDeliveryDate").value,
-    status: document.getElementById("editStatus").value,
-    id_user: currentUserId,
-  };
+      if (confirm("¿Estás seguro de que deseas eliminar esta orden?")) {
+        try {
+          await orderModel.eliminarOrden(orderId, token);
+          e.target.closest(".card").remove();
+          alert("Orden eliminada con éxito.");
+        } catch (error) {
+          console.error(error);
+          alert("No se pudo eliminar la orden.");
+        }
+      }
+    }
+  });
 
-  const token = localStorage.getItem("token");
-  if (!token) return alert("Debes iniciar sesión nuevamente.");
+  document.getElementById("saveChangesButton")?.addEventListener("click", async () => {
+    if (!currentOrderId) return alert("No se encontró la orden.");
 
-  try {
-    await orderModel.actualizarOrden(currentOrderId, updatedOrder, token);
-    orderView.actualizarOrdenEnPantalla(currentOrderId, updatedOrder);
-    bootstrap.Modal.getInstance(document.getElementById("editModal")).hide();
-    alert("Orden actualizada con éxito.");
-  } catch (error) {
-    console.error(error);
-    alert("No se pudo actualizar la orden.");
-  }
-});
+    const updatedOrder = {
+      description: document.getElementById("editDescription").value.trim(),
+      direction: document.getElementById("editDirection").value.trim(),
+      date_order: document.getElementById("editDeliveryDate").value,
+      status: document.getElementById("editStatus").value,
+      id_user: currentUserId,
+    };
+
+    const token = localStorage.getItem("token");
+    if (!token) return alert("Debes iniciar sesión nuevamente.");
+
+    try {
+      await orderModel.actualizarOrden(currentOrderId, updatedOrder, token);
+      orderView.actualizarOrdenEnPantalla(currentOrderId, updatedOrder);
+      bootstrap.Modal.getInstance(document.getElementById("editModal")).hide();
+      alert("Orden actualizada con éxito.");
+    } catch (error) {
+      console.error(error);
+      alert("No se pudo actualizar la orden.");
+    }
+  });
+}

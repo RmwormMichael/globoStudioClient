@@ -34,6 +34,14 @@ const userView = {
   
       usersContainer.appendChild(contenedorCards);
     },
+
+    configurarBuscador(onFiltrar) {
+      const inputBusqueda = document.querySelector(".input-group input");
+      inputBusqueda.addEventListener("input", () => {
+        const texto = inputBusqueda.value.toLowerCase().trim();
+        onFiltrar(texto); // ejecuta la función que le pases desde el controller
+      });
+    },
   
     llenarModal(usuario, onSave) {
       document.getElementById("nombre").value = usuario.nombre;
