@@ -1,20 +1,28 @@
 const orderModel = {
-    async crearPedido(orderData, token) {
-      try {
-        const response = await fetch("http://localhost:4000/api/orders/orders/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(orderData),
-        });
-        return await response.json();
-      } catch (error) {
-        console.error("Error al crear el pedido:", error);
-        throw new Error("Hubo un error al enviar el pedido.");
+  async crearPedido(orderData, token) {
+    try {
+      const response = await fetch("http://localhost:4000/api/orders/orders/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(orderData),
+      });
+  
+      const data = await response.json();
+      
+      if (!response.ok) {
+        // Si la respuesta no es OK, lanzar un error con el mensaje del servidor
+        throw new Error(data.message || "Error al crear el pedido");
       }
-    },
+      
+      return data;
+    } catch (error) {
+      console.error("Error al crear el pedido:", error);
+      throw error; // Re-lanzar el error para manejarlo en la vista
+    }
+  },
   
     async obtenerOrdenes(token) {
       const response = await fetch("http://localhost:4000/api/orders/orders", {

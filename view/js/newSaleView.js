@@ -50,46 +50,58 @@ const newSaleView = {
 
   async enviarPedido(event) {
     event.preventDefault();
-
-    const token = localStorage.getItem("token"); // 🔥 Obtiene el token
-
+  
+    const token = localStorage.getItem("token");
     if (!token) {
       alert("No estás autenticado. Inicia sesión.");
-      window.location.href = "/login.html"; // Redirige al login si no hay token
+      window.location.href = "/login.html";
       return;
     }
-
+  
+    // Obtener valores del formulario
     const id_user = document.getElementById("id_user").value;
     const date_order = document.getElementById("date_order").value;
     const direction = document.getElementById("direction").value;
     const description = document.getElementById("description").value;
-
-    if (parseInt(id_user) < 1) {
-      alert("El ID de usuario debe ser un número positivo.");
+  
+    // Validaciones
+    if (!id_user || !date_order || !direction || !description) {
+      alert("Por favor, completa todos los campos obligatorios.");
       return;
     }
-
-    const status = "en_proceso";
-
+  
     const orderData = {
-      id_user, // ID seleccionado desde el select
-      status,
+      id_user,
+      status: "en_proceso",
       date_order,
       direction,
       description,
     };
-
+  
     try {
+      // Mostrar estado de carga
+      const submitButton = document.getElementById("submitButton");
+      submitButton.disabled = true;
+      submitButton.textContent = "Creando pedido...";
+  
+      // Crear pedido
       const result = await orderModel.crearPedido(orderData, token);
-
-      if (result.success) {
-        alert("¡Pedido creado correctamente!");
-        document.getElementById("orderForm").reset();
-      } else {
-        alert(`Error al crear el pedido: ${result.msg}`);
-      }
+      
+      // Si llegamos aquí, el pedido se creó correctamente
+      alert("¡Pedido creado correctamente!");
+      document.getElementById("orderForm").reset();
+      
     } catch (error) {
-      alert("Hubo un error al enviar los datos. Intenta nuevamente.");
+      // Mostrar mensaje de error específico
+      alert(`Error al crear el pedido: ${error.message}`);
+      console.error("Error:", error);
+    } finally {
+      // Restaurar el botón
+      const submitButton = document.getElementById("submitButton");
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = "Añadir Orden";
+      }
     }
   }
 };
