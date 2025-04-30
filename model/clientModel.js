@@ -49,23 +49,32 @@ export default class ClientModel {
   }
   
 
-
   export async function obtenerOrdenesCliente(token) {
-    const response = await fetch("http://localhost:4000/api/orders/orders/", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-  
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.msg || "Error al obtener las órdenes");
+    try {
+        const response = await fetch("http://localhost:4000/api/orders/orders/my-orders", {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            // Si el error es 404, indica que el endpoint no existe
+            if (response.status === 404) {
+                throw new Error("Endpoint no encontrado. Contacta al administrador.");
+            }
+            
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.msg || "Error al obtener tus órdenes");
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Error en obtenerOrdenesCliente:", error);
+        throw error;
     }
-  
-    return await response.json();
-  }
+}
   
   
 

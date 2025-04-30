@@ -75,11 +75,23 @@ export async function mostrarUsuarios() {
         return;
       }
 
-      const filtrados = listaUsuarios.filter(u =>
-        u.id_user.toString().includes(texto) || // Buscar por ID
-        u.nombre.toLowerCase().includes(texto) || // Buscar por nombre
-        (u.email && u.email.toLowerCase().includes(texto)) // Buscar por email
-      );
+      const filtrados = listaUsuarios.filter(u => {
+        // Convertir el texto de búsqueda a minúsculas una sola vez
+        const searchText = texto.toLowerCase();
+        
+        // Búsqueda exacta por ID
+        if (u.id_user.toString() === texto) {
+          return true;
+        }
+        
+        // Búsqueda por nombre (que empiece con el texto)
+        if (u.nombre.toLowerCase().startsWith(searchText)) {
+          return true;
+        }
+        
+        
+        return false;
+      });
 
       userView.mostrarUsuarios(filtrados, {
         onEdit: (usuario) => userView.llenarModal(usuario, guardarCambios),

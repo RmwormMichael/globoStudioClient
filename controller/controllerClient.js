@@ -122,16 +122,31 @@ export async function mostrarCotizaciones() {
   }
 
   try {
+    // Mostrar loader mientras se cargan los datos
+    container.innerHTML = '<div class="text-center">Cargando tus órdenes...</div>';
+    
     const orders = await obtenerOrdenesCliente(token);
-    if (!Array.isArray(orders)) {
-      console.error("La respuesta no es un array:", orders);
-      alert("No hay cotizaciones disponibles.");
+    
+    if (!orders || orders.length === 0) {
+      container.innerHTML = `
+        <div class="alert alert-info">
+          No tienes órdenes registradas aún.
+          <button class="btn btn-primary mt-2" onclick="mostrarNewSale()">
+            Crear nueva orden
+          </button>
+        </div>
+      `;
       return;
     }
+    
     renderizarOrdenesCliente(orders, container);
   } catch (error) {
     console.error("Error al obtener las cotizaciones:", error);
-    alert("Hubo un error al obtener los datos.");
+    container.innerHTML = `
+      <div class="alert alert-danger">
+        Error al cargar tus órdenes: ${error.message}
+      </div>
+    `;
   }
 }
 

@@ -1,17 +1,16 @@
 const userView = {
   mostrarUsuarios(usuarios, { onEdit, onDelete }) {
-    const contenedorCards = document.createElement("div");
-    contenedorCards.classList.add("usersCardsContainer");
-
-    const templateCard = document.getElementById("userCard");
     const usersContainer = document.querySelector(".usersContainer");
     
-    // Limpiar solo las tarjetas, no todo el contenedor
-    usersContainer.querySelector(".usersCardsContainer")?.remove();
+    // Limpiar solo las tarjetas existentes (manteniendo el input de búsqueda)
+    const existingCards = usersContainer.querySelectorAll(".card.user");
+    existingCards.forEach(card => card.remove());
+
+    const templateCard = document.getElementById("userCard");
 
     usuarios.forEach(usuario => {
-      const card = templateCard.content.cloneNode(true);
-
+      const card = templateCard.content.cloneNode(true).querySelector(".card");
+      
       card.querySelector(".user-id").textContent = `ID: ${usuario.id_user}`;
       card.querySelector(".user-name").textContent = usuario.nombre;
       card.querySelector(".user-email").textContent = usuario.email;
@@ -25,10 +24,10 @@ const userView = {
       editBtn.addEventListener("click", () => onEdit(usuario));
       deleteBtn.addEventListener("click", () => onDelete(usuario.id_user));
 
-      contenedorCards.appendChild(card);
+      // Añadir directamente al usersContainer (que ya tiene los estilos grid)
+      usersContainer.appendChild(card);
     });
 
-    usersContainer.appendChild(contenedorCards);
   },
 
   configurarBuscador(onFiltrar) {

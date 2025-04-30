@@ -56,35 +56,61 @@ export function renderizarPerfil(usuario) {
 
 
   export function renderizarOrdenesCliente(ordenes, container) {
+    // Crea un contenedor específico para las cotizaciones
+    const cotizacionesContainer = document.createElement('div');
+    cotizacionesContainer.className = 'cotizacionesContainer';
+    
+    // Limpia el contenedor principal antes de agregar
+    container.innerHTML = '';
+    
     ordenes.forEach((order) => {
-      crearCardCliente(order, container);
+      crearCardCliente(order, cotizacionesContainer);
     });
+    
+    // Agrega el contenedor de cotizaciones al contenedor principal
+    container.appendChild(cotizacionesContainer);
   }
   
   function crearCardCliente(order, container) {
     const template = document.getElementById("CotizacionesTemplate");
+    if (!template) {
+      console.error("No se encontró el template de cotizaciones");
+      return;
+    }
+  
     const clone = document.importNode(template.content, true);
   
-    clone.querySelector(".cardDescription").textContent = order.description;
+    // Mapeo de estados para mostrar texto más amigable
+    const statusMap = {
+      'pendiente': 'Pendiente',
+      'en_proceso': 'En proceso',
+      'entregado': 'Entregado',
+      'cancelado': 'Cancelado'
+    };
   
-    const creationDate = new Date(order.order_created_at);
-    clone.querySelector(
-      ".creation-date"
-    ).textContent = `Creación: ${creationDate.toLocaleString()}`;
+    clone.querySelector(".cardDescription").textContent = order.description || "Sin descripción";
   
-    const deliveryDate = new Date(order.date_order);
-    clone.querySelector(
-      ".delivery-date"
-    ).textContent = `Entrega: ${deliveryDate.toLocaleString()}`;
+    const formatDate = (dateStr) => {
+      if (!dateStr) return "Fecha no especificada";
+      const date = new Date(dateStr);
+      return date.toLocaleString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    };
   
-    clone.querySelector(
-      ".direction"
-    ).textContent = `Dirección: ${order.direction}`;
-    clone.querySelector(".cardStatus").textContent = `Estado: ${order.status}`;
+    clone.querySelector(".creation-date").textContent = `Creación: ${formatDate(order.order_created_at)}`;
+    clone.querySelector(".delivery-date").textContent = `Entrega: ${formatDate(order.date_order)}`;
+    clone.querySelector(".direction").textContent = `Dirección: ${order.direction || "No especificada"}`;
+    clone.querySelector(".cardStatus").textContent = `Estado: ${statusMap[order.status] || order.status}`;
   
-    clone
-      .querySelector(".edit-button-client")
-      .setAttribute("data-id", order.id_order);
+    const editButton = clone.querySelector(".edit-button-client");
+    if (editButton) {
+      editButton.setAttribute("data-id", order.id_order);
+    }
   
     container.appendChild(clone);
   }

@@ -134,24 +134,24 @@
     <!-- ----------------------- Template para ordenes (cliente) -->
 
     <template id="CotizacionesTemplate">
-        <div class="container">
-            <div class="card">
-                <div class="card-body">
-                    <h3>Descripción:</h3>
-                    <p class="cardDescription"></p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item direction"></li>
-                    <li class="list-group-item creation-date"></li>
-                    <li class="list-group-item delivery-date"></li>
-                    <li class="list-group-item cardStatus">Estado: </li>
-                </ul>
-                <div class="card-body">
-                    <button class="btn btn-warning edit-button-client" data-id="">Editar</button>
-                </div>
+        <div class="cotizacionesContainer">  <!-- Contenedor principal -->
+          <div class="card cotizacion-card">  <!-- Añade clase específica -->
+            <div class="card-body">
+              <h3>Descripción:</h3>
+              <p class="cardDescription"></p>
             </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item direction"></li>
+              <li class="list-group-item creation-date"></li>
+              <li class="list-group-item delivery-date"></li>
+              <li class="list-group-item cardStatus">Estado: </li>
+            </ul>
+            <div class="card-body">
+              <button class="btn btn-warning edit-button-client" data-id="">Editar</button>
+            </div>
+          </div>
         </div>
-    </template>
+      </template>
 
     <!-- Modal exclusivo para la vista de cliente -->
     <div class="modal fade" id="editModalClient" tabindex="-1" aria-labelledby="editModalClientLabel"

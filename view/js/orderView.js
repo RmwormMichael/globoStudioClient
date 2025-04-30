@@ -3,6 +3,15 @@ const orderView = {
     const template = document.getElementById("MySales");
     const clone = document.importNode(template.content, true);
 
+    // Mapeo de estados
+    const statusMap = {
+      'pendiente': 'Pendiente',
+      'en_proceso': 'En proceso',
+      'entregado': 'Entregado',
+      'cancelado': 'Cancelado'
+      // Agrega más estados si es necesario
+    };
+
     clone.querySelector(".order-id").textContent = `ID: ${order.id_order}`;
     clone.querySelector(".user-name").textContent = user ? user.nombre : "Usuario no encontrado";
     clone.querySelector(".cardDescription").textContent = order.description;
@@ -20,7 +29,7 @@ const orderView = {
     clone.querySelector(".direction").textContent = `Dirección: ${order.direction}`;
     clone.querySelector(".creation-date").textContent = `Creado: ${formatDate(order.order_created_at)}`;
     clone.querySelector(".delivery-date").textContent = `Entrega: ${formatDate(order.date_order)}`;
-    clone.querySelector(".cardStatus").textContent = `Estado: ${order.status === "en_proceso" ? "En proceso" : "Entregado"}`;
+    clone.querySelector(".cardStatus").textContent = `Estado: ${statusMap[order.status] || order.status}`;
 
     const editButton = clone.querySelector(".edit-button");
     editButton.setAttribute("data-id", order.id_order);
@@ -43,6 +52,13 @@ const orderView = {
   },
 
   actualizarOrdenEnPantalla(orderId, updatedOrder) {
+    const statusMap = {
+      'pendiente': 'Pendiente',
+      'en_proceso': 'En proceso',
+      'entregado': 'Entregado',
+      'cancelado': 'Cancelado'
+    };
+
     const cards = document.querySelectorAll(".card");
     cards.forEach((card) => {
       const editButton = card.querySelector(".edit-button");
@@ -58,9 +74,7 @@ const orderView = {
           .toString()
           .padStart(2, "0")}`;
         card.querySelector(".delivery-date").textContent = `Entrega: ${formattedDate}`;
-        card.querySelector(".cardStatus").textContent = `Estado: ${
-          updatedOrder.status === "en_proceso" ? "En proceso" : "Entregado"
-        }`;
+        card.querySelector(".cardStatus").textContent = `Estado: ${statusMap[updatedOrder.status] || updatedOrder.status}`;
       }
     });
   },
